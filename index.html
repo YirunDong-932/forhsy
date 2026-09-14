@@ -7,53 +7,27 @@
     <style>
         *{margin:0;padding:0;box-sizing:border-box;font-family:"Microsoft Yahei",sans-serif;}
         body{
-            min-height:100vh;
-            background:#fff5f8;
-            display:flex;
-            align-items:center;
-            justify-content:center;
-            flex-direction:column;
-            padding:20px;
-            overflow-x:hidden;
+            min-height:100vh;background:#fff5f8;
+            display:flex;align-items:center;justify-content:center;flex-direction:column;
+            padding:20px;overflow-x:hidden;
         }
         .page{display:none;text-align:center;}
         .page.active{display:block;}
         h1{color:#d86b8a;margin-bottom:30px;font-size:26px;line-height:1.6;}
         p{color:#666;margin-bottom:20px;font-size:17px;}
         .btn-box{display:flex;gap:30px;justify-content:center;flex-wrap:wrap;}
-        button{
-            padding:14px 32px;font-size:18px;border:none;border-radius:99px;
-            cursor:pointer;transition:0.3s ease all;
-        }
+        button{padding:14px 32px;font-size:18px;border:none;border-radius:99px;cursor:pointer;transition:0.3s ease all;}
         #yesBtn{background:#f284a1;color:white;transform:scale(1);}
         #noBtn{background:#ddd;color:#333;transform:scale(1);}
-        .time-list{
-            display:grid;
-            grid-template-columns:repeat(4,1fr);
-            gap:12px;max-width:500px;margin:20px auto;
-        }
-        .time-item{
-            padding:10px;background:#ffe6ec;border-radius:8px;cursor:pointer;
-        }
+        .time-list{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;max-width:500px;margin:20px auto;}
+        .time-item{padding:10px;background:#ffe6ec;border-radius:8px;cursor:pointer;}
         .time-item:hover{background:#f8b8c8;color:white;}
-        .result-card{
-            background:white;padding:30px;border-radius:20px;box-shadow:0 4px 15px #00000010;
-        }
-        .tip-text{
-            margin-top:20px;
-            font-size:15px;
-            color:#b87088;
-        }
-        .mail-tip{
-            margin-top:16px;
-            font-size:14px;
-            color:#888;
-        }
+        .result-card{background:white;padding:30px;border-radius:20px;box-shadow:0 4px 15px #00000010;}
+        .tip-text{margin-top:20px;font-size:15px;color:#b87088;}
     </style>
 </head>
 <body>
 
-<!-- 首页 -->
 <div class="page active" id="page1">
     <h1>✨ 9.18 我们相识100天✨<br>想送你一束花，可以吗？</h1>
     <div class="btn-box">
@@ -62,7 +36,6 @@
     </div>
 </div>
 
-<!-- 选时间页面 -->
 <div class="page" id="page2">
     <h1>挑选鲜花送达时间</h1>
     <p>请选择9月18日鲜花送达的整点时间</p>
@@ -82,71 +55,40 @@
     </div>
 </div>
 
-<!-- 结果卡片 -->
 <div class="page" id="page3">
     <div class="result-card">
         <h1>💌 预约成功！</h1>
         <p>📅 日期：9月18日<br>⏰ 送达时间：<span id="selTime"></span><br>🌸 纪念：我们相识100天的鲜花</p>
         <p class="tip-text">很高兴和你走过这100天，期待往后更多日子✨</p>
-        <p class="mail-tip">她选择的时间已自动发送到你的邮箱。</p>
     </div>
 </div>
 
 <script>
-    const page1 = document.getElementById('page1');
-    const page2 = document.getElementById('page2');
-    const page3 = document.getElementById('page3');
-    const yesBtn = document.getElementById('yesBtn');
-    const noBtn = document.getElementById('noBtn');
-    const selTime = document.getElementById('selTime');
-    const timeItems = document.querySelectorAll('.time-item');
+const page1=document.getElementById('page1'),page2=document.getElementById('page2'),page3=document.getElementById('page3');
+const yesBtn=document.getElementById('yesBtn'),noBtn=document.getElementById('noBtn');
+const selTime=document.getElementById('selTime');
+const timeItems=document.querySelectorAll('.time-item');
 
-    // 在这里改成你自己的邮箱
-    const MY_EMAIL = "dongyirun932@gmail.com";
+let scaleYes=1,scaleNo=1;
+function shrink(){
+    scaleYes+=0.15;scaleNo-=0.15;
+    if(scaleNo<0.2)scaleNo=0.2;
+    yesBtn.style.transform=`scale(${scaleYes})`;
+    noBtn.style.transform=`scale(${scaleNo})`;
+}
+noBtn.addEventListener('mouseover',shrink);
+noBtn.addEventListener('click',(e)=>{e.preventDefault();shrink();});
 
-    // 愿意按钮越来越大，不要按钮越来越小
-    let scaleYes = 1;
-    let scaleNo = 1;
+yesBtn.onclick=()=>{page1.classList.remove('active');page2.classList.add('active');};
 
-    noBtn.addEventListener('mouseover', () => {
-        scaleYes += 0.15;
-        scaleNo -= 0.15;
-        if (scaleNo < 0.2) scaleNo = 0.2;
-        yesBtn.style.transform = `scale(${scaleYes})`;
-        noBtn.style.transform = `scale(${scaleNo})`;
-    });
-
-    // 手机端点击“不要”也触发缩放效果
-    noBtn.addEventListener('click', (e) => {
-        e.preventDefault();
-        scaleYes += 0.15;
-        scaleNo -= 0.15;
-        if (scaleNo < 0.2) scaleNo = 0.2;
-        yesBtn.style.transform = `scale(${scaleYes})`;
-        noBtn.style.transform = `scale(${scaleNo})`;
-    });
-
-    yesBtn.onclick = () => {
-        page1.classList.remove('active');
-        page2.classList.add('active');
+timeItems.forEach(item=>{
+    item.onclick=()=>{
+        const time=item.dataset.t;
+        selTime.innerText=time;
+        page2.classList.remove('active');
+        page3.classList.add('active');
     };
-
-    timeItems.forEach(item => {
-        item.onclick = () => {
-            const time = item.dataset.t;
-            selTime.innerText = time;
-            page2.classList.remove('active');
-            page3.classList.add('active');
-
-            // 发送邮件到你的邮箱
-            const subject = encodeURIComponent("9月18日鲜花送达时间预约");
-            const body = encodeURIComponent(
-                "她选择了9月18日鲜花送达时间：" + time + "\n\n请及时联系花店预约。"
-            );
-            window.location.href = `mailto:${MY_EMAIL}?subject=${subject}&body=${body}`;
-        };
-    });
+});
 </script>
-
 </body>
 </html>
