@@ -2,114 +2,423 @@
 <html lang="zh-CN">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
     <title>100天纪念邀约</title>
 
+
     <style>
+
+        /* ==================================================
+           全局
+        ================================================== */
+
         * {
             margin: 0;
             padding: 0;
+
             box-sizing: border-box;
-            font-family: "Microsoft Yahei", sans-serif;
+
+            font-family:
+                "Microsoft Yahei",
+                "PingFang SC",
+                sans-serif;
         }
+
 
         body {
             min-height: 100vh;
+
             background: #fff5f8;
+
             display: flex;
+
             align-items: center;
             justify-content: center;
+
             flex-direction: column;
+
             padding: 20px;
+
             overflow-x: hidden;
         }
 
+
+
+        /* ==================================================
+           页面基础样式
+        ================================================== */
+
         .page {
             display: none;
-            text-align: center;
+
             width: 100%;
+
+            text-align: center;
+
+            opacity: 0;
         }
+
+
+        /*
+         * 新页面进入
+         */
 
         .page.active {
             display: block;
+
+            opacity: 1;
+
+            animation:
+                pageEnter
+                0.52s
+                cubic-bezier(.22, .8, .3, 1)
+                both;
         }
+
+
+        /*
+         * 当前页面离开
+         */
+
+        .page.leaving {
+            display: block;
+
+            pointer-events: none;
+
+            animation:
+                pageLeave
+                0.28s
+                ease
+                forwards;
+        }
+
+
+        /*
+         * 新页面：
+         * 从下面一点点浮上来
+         */
+
+        @keyframes pageEnter {
+
+            0% {
+                opacity: 0;
+
+                transform:
+                    translateY(18px)
+                    scale(0.985);
+            }
+
+            100% {
+                opacity: 1;
+
+                transform:
+                    translateY(0)
+                    scale(1);
+            }
+
+        }
+
+
+        /*
+         * 老页面：
+         * 轻轻往上淡出
+         */
+
+        @keyframes pageLeave {
+
+            0% {
+                opacity: 1;
+
+                transform:
+                    translateY(0)
+                    scale(1);
+            }
+
+            100% {
+                opacity: 0;
+
+                transform:
+                    translateY(-10px)
+                    scale(0.99);
+            }
+
+        }
+
+
 
         h1 {
             color: #d86b8a;
+
             margin-bottom: 30px;
+
             font-size: 26px;
-            line-height: 1.6;
+
+            line-height: 1.7;
+
+            font-weight: 500;
         }
+
 
         p {
-            color: #666;
+            color: #777;
+
             margin-bottom: 20px;
+
             font-size: 17px;
+
+            line-height: 1.8;
         }
 
-        .btn-box {
-            display: flex;
-            gap: 30px;
-            justify-content: center;
-            flex-wrap: wrap;
-        }
 
         button {
             padding: 14px 32px;
+
             font-size: 18px;
+
             border: none;
+
             border-radius: 99px;
+
             cursor: pointer;
-            transition: 0.3s ease all;
+
+            transition:
+                transform 0.25s ease,
+                background 0.25s ease,
+                box-shadow 0.25s ease;
         }
+
+
+
+        /* ==================================================
+           开场 INTRO
+        ================================================== */
+
+        #introPage {
+            max-width: 650px;
+
+            margin: auto;
+        }
+
+
+        .intro-title {
+            color: #c98397;
+
+            font-size: 21px;
+
+            font-weight: normal;
+
+            margin-bottom: 36px;
+
+            letter-spacing: 1px;
+        }
+
+
+        #startIntroBtn,
+        #soBtn {
+            background: #f284a1;
+
+            color: white;
+
+            box-shadow:
+                0 6px 18px
+                rgba(242, 132, 161, 0.22);
+        }
+
+
+        #startIntroBtn:hover,
+        #soBtn:hover {
+            background: #eb7595;
+
+            transform: translateY(-2px);
+
+            box-shadow:
+                0 8px 20px
+                rgba(242, 132, 161, 0.28);
+        }
+
+
+        #startIntroBtn:active,
+        #soBtn:active {
+            transform: scale(0.94);
+        }
+
+
+
+        /*
+         * 开场每一句文字
+         */
+
+        .intro-line {
+            opacity: 0;
+
+            transform: translateY(16px);
+
+            transition:
+                opacity 1.2s ease,
+                transform 1.2s ease;
+
+            color: #86656e;
+
+            font-size: 20px;
+
+            line-height: 2;
+
+            margin-bottom: 22px;
+        }
+
+
+        .intro-line.show {
+            opacity: 1;
+
+            transform: translateY(0);
+        }
+
+
+        .intro-line.important {
+            color: #d86b8a;
+
+            font-size: 22px;
+        }
+
+
+
+        /*
+         * “所以……”按钮
+         */
+
+        #soBtn {
+            display: none;
+
+            margin-top: 18px;
+
+            opacity: 0;
+
+            animation:
+                buttonFade
+                0.9s
+                ease
+                forwards;
+        }
+
+
+        @keyframes buttonFade {
+
+            from {
+                opacity: 0;
+
+                transform: translateY(10px);
+            }
+
+            to {
+                opacity: 1;
+
+                transform: translateY(0);
+            }
+
+        }
+
+
+
+        /* ==================================================
+           第一页
+           好呀 / 不要
+        ================================================== */
+
+        .btn-box {
+            display: flex;
+
+            gap: 30px;
+
+            justify-content: center;
+
+            flex-wrap: wrap;
+        }
+
 
         #yesBtn {
             background: #f284a1;
+
             color: white;
+
             transform: scale(1);
         }
+
 
         #yesBtn:hover {
             background: #eb7595;
-            box-shadow: 0 6px 16px rgba(242, 132, 161, 0.28);
+
+            box-shadow:
+                0 6px 16px
+                rgba(242, 132, 161, 0.28);
         }
 
+
         #noBtn {
-            background: #ddd;
-            color: #333;
+            background: #e5e2e3;
+
+            color: #666;
+
             transform: scale(1);
         }
+
+
+
+        /* ==================================================
+           时间 / 奶茶 / 地点
+        ================================================== */
 
         .time-list,
         .drink-list,
         .location-list {
             display: grid;
+
             gap: 12px;
+
             max-width: 500px;
+
             margin: 20px auto;
         }
 
+
         .time-list {
-            grid-template-columns: repeat(3, 1fr);
+            grid-template-columns:
+                repeat(3, 1fr);
+
             max-width: 420px;
         }
 
+
         .drink-list {
-            grid-template-columns: repeat(4, 1fr);
+            grid-template-columns:
+                repeat(4, 1fr);
         }
 
+
         .location-list {
-            grid-template-columns: repeat(2, 1fr);
+            grid-template-columns:
+                repeat(2, 1fr);
+
             max-width: 360px;
         }
+
+
 
         .time-item,
         .drink-item,
         .location-item {
             padding: 13px 10px;
+
             background: #ffe6ec;
+
             color: #80515e;
+
             border-radius: 10px;
+
             cursor: pointer;
 
             transition:
@@ -119,19 +428,29 @@
                 box-shadow 0.18s ease;
         }
 
+
         .location-item {
             padding: 20px 15px;
+
             font-size: 18px;
         }
+
+
 
         .time-item:hover,
         .drink-item:hover,
         .location-item:hover {
             background: #f8b8c8;
+
             color: white;
+
             transform: translateY(-3px);
-            box-shadow: 0 6px 14px rgba(216, 107, 138, 0.18);
+
+            box-shadow:
+                0 6px 14px
+                rgba(216, 107, 138, 0.18);
         }
+
 
         .time-item:active,
         .drink-item:active,
@@ -139,129 +458,361 @@
             transform: scale(0.94);
         }
 
+
+
+        /*
+         * 选中动画
+         */
+
         .time-item.selected,
         .drink-item.selected,
         .location-item.selected {
             background: #f284a1;
+
             color: white;
+
             transform: scale(1.08);
-            box-shadow: 0 8px 18px rgba(242, 132, 161, 0.28);
+
+            box-shadow:
+                0 8px 18px
+                rgba(242, 132, 161, 0.28);
         }
+
+
+
+        /* ==================================================
+           最终 100 DAYS 卡片
+        ================================================== */
 
         .result-card {
             position: relative;
+
             width: min(90vw, 440px);
+
             margin: auto;
+
             background: white;
-            padding: 38px 30px 55px;
+
+            padding:
+                38px
+                30px
+                55px;
+
             border-radius: 24px;
 
             box-shadow:
-                0 10px 35px rgba(216, 107, 138, 0.13),
-                0 3px 10px rgba(0, 0, 0, 0.04);
+                0 10px 35px
+                rgba(216, 107, 138, 0.13),
+
+                0 3px 10px
+                rgba(0, 0, 0, 0.04);
 
             opacity: 0;
-            transform: translateY(25px) scale(0.96);
+
+            transform:
+                translateY(25px)
+                scale(0.96);
         }
+
+
+
+        /*
+         * 最终卡片自己再有一点点出现效果
+         */
 
         #page6.active .result-card {
-            animation: cardShow 0.75s cubic-bezier(.2, .8, .2, 1) forwards;
+            animation:
+                cardShow
+                0.75s
+                cubic-bezier(.2, .8, .2, 1)
+                0.15s
+                forwards;
         }
 
+
         @keyframes cardShow {
+
             0% {
                 opacity: 0;
-                transform: translateY(30px) scale(0.94);
+
+                transform:
+                    translateY(25px)
+                    scale(0.96);
             }
 
             60% {
                 opacity: 1;
-                transform: translateY(-4px) scale(1.01);
+
+                transform:
+                    translateY(-3px)
+                    scale(1.01);
             }
 
             100% {
                 opacity: 1;
-                transform: translateY(0) scale(1);
+
+                transform:
+                    translateY(0)
+                    scale(1);
             }
+
         }
+
+
 
         .days-number {
             font-size: 58px;
+
             font-weight: bold;
+
             color: #f284a1;
+
             line-height: 1;
+
             margin-bottom: 8px;
+
             letter-spacing: 2px;
         }
 
+
         .days-text {
             color: #c47a90;
+
             font-size: 13px;
+
             letter-spacing: 6px;
+
             margin-bottom: 28px;
         }
 
+
+
         .result-card h1 {
             margin-bottom: 20px;
+
             font-size: 25px;
         }
 
+
+
         .result-info {
             background: #fff7f9;
+
             padding: 20px;
+
             border-radius: 15px;
+
             margin-bottom: 22px;
+
             text-align: left;
         }
 
+
         .result-info p {
             margin: 0;
+
             line-height: 2.1;
+
             font-size: 16px;
         }
+
+
 
         .anniversary-text {
             margin-top: 18px;
+
             margin-bottom: 10px;
+
             font-size: 16px;
+
             color: #b87088;
+
             line-height: 1.9;
         }
 
+
+
         .tip-text {
             margin-top: 18px;
+
             margin-bottom: 0;
+
             font-size: 14px;
+
             color: #d28aa0;
         }
 
+
+
         .designer-signature {
             position: absolute;
+
             right: 18px;
+
             bottom: 14px;
+
             font-size: 10px;
+
             color: #c8a2ad;
+
             letter-spacing: 0.5px;
+
             font-style: italic;
         }
 
+
+
+        /* ==================================================
+           音乐按钮
+        ================================================== */
+
         #musicBtn {
+            display: none;
+
             position: fixed;
+
             top: 20px;
+
             right: 20px;
+
             padding: 8px 14px;
+
             background: #f284a1;
-            color: #fff;
+
+            color: white;
+
             border-radius: 20px;
+
             border: none;
+
             cursor: pointer;
+
             font-size: 14px;
+
             z-index: 100;
         }
+
 
         #musicBtn:hover {
             background: #eb7595;
         }
+
+
+
+        /* ==================================================
+           隐藏入口
+
+           你自己记住：
+           左下角最边缘 22 × 22px
+        ================================================== */
+
+        #secretTrigger {
+            position: fixed;
+
+            left: 0;
+
+            bottom: 0;
+
+            width: 22px;
+
+            height: 22px;
+
+            padding: 0;
+
+            border: none;
+
+            border-radius: 0;
+
+            background: transparent;
+
+            opacity: 0.01;
+
+            cursor: default;
+
+            z-index: 9999;
+        }
+
+
+
+        /* ==================================================
+           隐藏告白页面
+        ================================================== */
+
+        #secretPage {
+            max-width: 700px;
+
+            margin: auto;
+        }
+
+
+        .secret-message {
+            color: #d86b8a;
+
+            font-size: 30px;
+
+            font-weight: 500;
+
+            line-height: 2;
+
+            letter-spacing: 1px;
+        }
+
+
+
+        #secretPage.active .secret-message {
+            animation:
+                secretFade
+                1.2s
+                ease
+                both;
+        }
+
+
+        @keyframes secretFade {
+
+            from {
+                opacity: 0;
+
+                transform:
+                    translateY(16px);
+            }
+
+            to {
+                opacity: 1;
+
+                transform:
+                    translateY(0);
+            }
+
+        }
+
+
+
+        #secretBack {
+            margin-top: 40px;
+
+            background: transparent;
+
+            color: #c69aa7;
+
+            font-size: 13px;
+
+            padding: 8px 16px;
+
+            border:
+                1px solid #ead5db;
+        }
+
+
+        #secretBack:hover {
+            background: #fff0f4;
+        }
+
+
+
+        /* ==================================================
+           手机适配
+        ================================================== */
 
         @media (max-width: 600px) {
 
@@ -269,238 +820,509 @@
                 padding: 20px 15px;
             }
 
+
             h1 {
                 font-size: 22px;
             }
 
+
+            .intro-title {
+                font-size: 18px;
+            }
+
+
+            .intro-line {
+                font-size: 18px;
+            }
+
+
+            .intro-line.important {
+                font-size: 20px;
+            }
+
+
             .time-list {
-                grid-template-columns: repeat(2, 1fr);
+                grid-template-columns:
+                    repeat(2, 1fr);
+
                 max-width: 300px;
             }
 
+
             .drink-list {
-                grid-template-columns: repeat(2, 1fr);
+                grid-template-columns:
+                    repeat(2, 1fr);
+
                 max-width: 330px;
             }
+
 
             .location-list {
                 max-width: 300px;
             }
 
+
             .result-card {
-                padding: 32px 22px 52px;
+                padding:
+                    32px
+                    22px
+                    52px;
             }
+
 
             .days-number {
                 font-size: 52px;
             }
 
+
             #musicBtn {
                 top: 12px;
+
                 right: 12px;
+
                 font-size: 12px;
+
                 padding: 7px 11px;
             }
 
+
             .designer-signature {
                 right: 15px;
+
                 bottom: 12px;
+
                 font-size: 9px;
             }
+
+
+            .secret-message {
+                font-size: 24px;
+
+                line-height: 1.9;
+            }
+
         }
+
     </style>
+
 </head>
+
 
 <body>
 
-    <!-- 背景音乐 -->
-    <audio id="bgMusic" loop>
-        <source src="music.mp3" type="audio/mpeg">
+
+    <!-- ==================================================
+         背景音乐
+    =================================================== -->
+
+    <audio
+        id="bgMusic"
+        loop
+    >
+        <source
+            src="music.mp3"
+            type="audio/mpeg"
+        >
     </audio>
 
+
     <button id="musicBtn">
-        🎵 播放音乐
+        🔇 暂停音乐
     </button>
 
 
-    <!-- PAGE 1：首页 -->
-    <div class="page active" id="page1">
+
+    <!-- ==================================================
+         隐藏入口
+
+         左下角最边缘
+    =================================================== -->
+
+    <button
+        id="secretTrigger"
+        aria-label="secret"
+    ></button>
+
+
+
+    <!-- ==================================================
+         INTRO
+    =================================================== -->
+
+    <div
+        class="page active"
+        id="introPage"
+    >
+
+
+        <div
+            class="intro-title"
+            id="introTitle"
+        >
+            有些话，我想慢慢说给你听。
+        </div>
+
+
+        <button id="startIntroBtn">
+            点开看看
+        </button>
+
+
+
+        <div
+            class="intro-line important"
+            id="introLine1"
+        >
+            我们相识于 6 月 11 日。
+        </div>
+
+
+
+        <div
+            class="intro-line"
+            id="introLine2"
+        >
+            到现在我还记得，
+            我们最近一次见面是在 7 月 14 日。
+        </div>
+
+
+
+        <div
+            class="intro-line"
+            id="introLine3"
+        >
+            不知不觉，
+            这个周五就已经是我们认识的第 100 天了。
+        </div>
+
+
+
+        <div
+            class="intro-line"
+            id="introLine4"
+        >
+            一百天说长不长，
+            但好像已经足够留下不少值得记住的瞬间。
+        </div>
+
+
+
+        <button id="soBtn">
+            所以……
+        </button>
+
+
+    </div>
+
+
+
+    <!-- ==================================================
+         PAGE 1
+         送花邀请
+    =================================================== -->
+
+    <div
+        class="page"
+        id="page1"
+    >
+
 
         <h1>
-            ✨ 好豆豆 马上就要到我们认识的第100天啦
+            ✨ 好豆豆
             <br>
-            想送你一束花，可以吗？
+            我想要送你一束花，可以吗？
         </h1>
+
 
         <div class="btn-box">
 
+
             <button id="yesBtn">
-                愿意
+                好呀
             </button>
+
 
             <button id="noBtn">
                 不要
             </button>
 
+
         </div>
+
 
     </div>
 
 
-    <!-- PAGE 2：选择鲜花时间 -->
-    <div class="page" id="page2">
+
+    <!-- ==================================================
+         PAGE 2
+         鲜花时间
+    =================================================== -->
+
+    <div
+        class="page"
+        id="page2"
+    >
+
 
         <h1>
-            🌸 挑选鲜花送达时间
+            🌸 那就挑一个你方便收到花的时间吧
         </h1>
 
+
         <p>
-            请选择9月18日下午3点至晚上8点的整点时间
+            9月18日下午，我会让它在你选好的时间去见你。
         </p>
+
 
         <div class="time-list">
 
-            <div class="time-item" data-t="15:00">
+
+            <div
+                class="time-item"
+                data-t="15:00"
+            >
                 15:00
             </div>
 
-            <div class="time-item" data-t="16:00">
+
+            <div
+                class="time-item"
+                data-t="16:00"
+            >
                 16:00
             </div>
 
-            <div class="time-item" data-t="17:00">
+
+            <div
+                class="time-item"
+                data-t="17:00"
+            >
                 17:00
             </div>
 
-            <div class="time-item" data-t="18:00">
+
+            <div
+                class="time-item"
+                data-t="18:00"
+            >
                 18:00
             </div>
 
-            <div class="time-item" data-t="19:00">
+
+            <div
+                class="time-item"
+                data-t="19:00"
+            >
                 19:00
             </div>
 
-            <div class="time-item" data-t="20:00">
+
+            <div
+                class="time-item"
+                data-t="20:00"
+            >
                 20:00
             </div>
 
+
         </div>
+
 
     </div>
 
 
-    <!-- PAGE 3：选择鲜花地点 -->
-    <div class="page" id="page3">
+
+    <!-- ==================================================
+         PAGE 3
+         鲜花地点
+    =================================================== -->
+
+    <div
+        class="page"
+        id="page3"
+    >
+
 
         <h1>
-            🌷 鲜花想送到哪里呢？
+            🌷 想让这束花去哪里找你呢？
         </h1>
 
+
         <p>
-            选一个你方便收到花的地方
+            学校也好，家里也好，选一个你最方便的地方就好。
         </p>
+
 
         <div class="location-list">
 
+
             <div
                 class="location-item flower-location"
-                data-location="学校">
+                data-location="学校"
+            >
                 🏫 学校
             </div>
 
+
             <div
                 class="location-item flower-location"
-                data-location="家里">
+                data-location="家里"
+            >
                 🏠 家里
             </div>
 
+
         </div>
+
 
     </div>
 
 
-    <!-- PAGE 4：选择奶茶 -->
-    <div class="page" id="page4">
+
+    <!-- ==================================================
+         PAGE 4
+         奶茶
+    =================================================== -->
+
+    <div
+        class="page"
+        id="page4"
+    >
+
 
         <h1>
-            🥤 想喝什么奶茶呢？
+            🥤 花都有了，好像还差一个东西
         </h1>
 
+
         <p>
-            选一款，和鲜花一起安排上
+            再挑一杯你想喝的吧
         </p>
+
 
         <div class="drink-list">
 
-            <div class="drink-item" data-d="喜茶">
+
+            <div
+                class="drink-item"
+                data-d="喜茶"
+            >
                 喜茶
             </div>
 
-            <div class="drink-item" data-d="奈雪">
+
+            <div
+                class="drink-item"
+                data-d="奈雪"
+            >
                 奈雪
             </div>
 
-            <div class="drink-item" data-d="茉莉奶白">
+
+            <div
+                class="drink-item"
+                data-d="茉莉奶白"
+            >
                 茉莉奶白
             </div>
 
-            <div class="drink-item" data-d="茶百道">
+
+            <div
+                class="drink-item"
+                data-d="茶百道"
+            >
                 茶百道
             </div>
 
+
         </div>
+
 
     </div>
 
 
-    <!-- PAGE 5：选择奶茶地点 -->
-    <div class="page" id="page5">
+
+    <!-- ==================================================
+         PAGE 5
+         奶茶地点
+    =================================================== -->
+
+    <div
+        class="page"
+        id="page5"
+    >
+
 
         <h1>
-            🧋 奶茶想送到哪里呢？
+            🧋 那这杯奶茶要去哪里找你呢？
         </h1>
 
+
         <p>
-            鲜花和奶茶也可以送到不同的地方哦
+            不一定要和花送到同一个地方，你觉得方便就好。
         </p>
+
 
         <div class="location-list">
 
+
             <div
                 class="location-item drink-location"
-                data-location="学校">
+                data-location="学校"
+            >
                 🏫 学校
             </div>
 
+
             <div
                 class="location-item drink-location"
-                data-location="家里">
+                data-location="家里"
+            >
                 🏠 家里
             </div>
 
+
         </div>
+
 
     </div>
 
 
-    <!-- PAGE 6：最终100天纪念卡片 -->
-    <div class="page" id="page6">
+
+    <!-- ==================================================
+         PAGE 6
+         最终纪念卡
+    =================================================== -->
+
+    <div
+        class="page"
+        id="page6"
+    >
+
 
         <div class="result-card">
+
 
             <div class="days-number">
                 100
             </div>
 
+
             <div class="days-text">
                 DAYS
             </div>
 
+
             <h1>
-                💌 鲜花预订成功
+                💌 好啦，都记住了
             </h1>
 
+
+
             <div class="result-info">
+
 
                 <p>
 
@@ -518,7 +1340,7 @@
 
                     <br>
 
-                    🥤 饮品：
+                    🥤 想喝的饮品：
                     <span id="selDrink"></span>
 
                     <br>
@@ -528,134 +1350,592 @@
 
                 </p>
 
+
             </div>
+
 
 
             <p class="anniversary-text">
 
                 🌸 纪念我们相识的第100天
 
-                <br>
+                <br><br>
 
-                很开心认识你，也很期待之后的每一天。
+                希望这束花到你手里的时候，
+                也能顺便把我的一点点开心带给你。
+
+                <br><br>
+
+                很开心认识你，
+                也希望以后的日子里，
+                还能有很多次值得期待的见面。
 
             </p>
+
 
 
             <p class="tip-text">
-                请截图给他吧！
+                请截图给我吧！
             </p>
+
 
 
             <div class="designer-signature">
                 Designed by DYR for HSY
             </div>
 
+
         </div>
+
 
     </div>
 
 
+
+    <!-- ==================================================
+         隐藏页面
+    =================================================== -->
+
+    <div
+        class="page"
+        id="secretPage"
+    >
+
+
+        <div class="secret-message">
+
+            郝爽言，我喜欢你。
+
+            <br>
+
+            -- 董亦润
+
+        </div>
+
+
+        <button id="secretBack">
+            返回
+        </button>
+
+
+    </div>
+
+
+
+    <!-- ==================================================
+         JAVASCRIPT
+    =================================================== -->
+
     <script>
 
-        /* 获取页面 */
-        const page1 = document.getElementById("page1");
-        const page2 = document.getElementById("page2");
-        const page3 = document.getElementById("page3");
-        const page4 = document.getElementById("page4");
-        const page5 = document.getElementById("page5");
-        const page6 = document.getElementById("page6");
+
+        /* ==================================================
+           页面
+        ================================================== */
+
+        const introPage =
+            document.getElementById(
+                "introPage"
+            );
 
 
-        /* 首页按钮 */
-        const yesBtn = document.getElementById("yesBtn");
-        const noBtn = document.getElementById("noBtn");
+        const page1 =
+            document.getElementById(
+                "page1"
+            );
 
 
-        /* 最终结果元素 */
-        const selTime =
-            document.getElementById("selTime");
-
-        const selFlowerLocation =
-            document.getElementById("selFlowerLocation");
-
-        const selDrink =
-            document.getElementById("selDrink");
-
-        const selDrinkLocation =
-            document.getElementById("selDrinkLocation");
+        const page2 =
+            document.getElementById(
+                "page2"
+            );
 
 
-        /* 获取所有选项 */
-        const timeItems =
-            document.querySelectorAll(".time-item");
-
-        const flowerLocations =
-            document.querySelectorAll(".flower-location");
-
-        const drinkItems =
-            document.querySelectorAll(".drink-item");
-
-        const drinkLocations =
-            document.querySelectorAll(".drink-location");
+        const page3 =
+            document.getElementById(
+                "page3"
+            );
 
 
-        /* 音乐 */
+        const page4 =
+            document.getElementById(
+                "page4"
+            );
+
+
+        const page5 =
+            document.getElementById(
+                "page5"
+            );
+
+
+        const page6 =
+            document.getElementById(
+                "page6"
+            );
+
+
+        const secretPage =
+            document.getElementById(
+                "secretPage"
+            );
+
+
+        const allPages =
+            document.querySelectorAll(
+                ".page"
+            );
+
+
+
+        /* ==================================================
+           柔和页面切换函数
+        ================================================== */
+
+        let isTransitioning = false;
+
+
+        function switchPage(
+            fromPage,
+            toPage
+        ) {
+
+
+            /*
+             * 防止连续点击
+             * 导致页面状态混乱
+             */
+
+            if (
+                isTransitioning ||
+                !fromPage ||
+                !toPage ||
+                fromPage === toPage
+            ) {
+                return;
+            }
+
+
+            isTransitioning = true;
+
+
+            /*
+             * 旧页面开始淡出
+             */
+
+            fromPage.classList.add(
+                "leaving"
+            );
+
+
+            /*
+             * 淡出完成以后
+             * 再显示新页面
+             */
+
+            setTimeout(() => {
+
+
+                fromPage.classList.remove(
+                    "active",
+                    "leaving"
+                );
+
+
+                toPage.classList.add(
+                    "active"
+                );
+
+
+                /*
+                 * 等新页面进入动画结束
+                 */
+
+                setTimeout(() => {
+
+                    isTransitioning = false;
+
+                }, 520);
+
+
+            }, 280);
+
+
+        }
+
+
+
+        /* ==================================================
+           INTRO
+        ================================================== */
+
+        const introTitle =
+            document.getElementById(
+                "introTitle"
+            );
+
+
+        const startIntroBtn =
+            document.getElementById(
+                "startIntroBtn"
+            );
+
+
+        const soBtn =
+            document.getElementById(
+                "soBtn"
+            );
+
+
+        const introLine1 =
+            document.getElementById(
+                "introLine1"
+            );
+
+
+        const introLine2 =
+            document.getElementById(
+                "introLine2"
+            );
+
+
+        const introLine3 =
+            document.getElementById(
+                "introLine3"
+            );
+
+
+        const introLine4 =
+            document.getElementById(
+                "introLine4"
+            );
+
+
+
+        /* ==================================================
+           音乐
+        ================================================== */
+
         const bgMusic =
-            document.getElementById("bgMusic");
+            document.getElementById(
+                "bgMusic"
+            );
+
 
         const musicBtn =
-            document.getElementById("musicBtn");
+            document.getElementById(
+                "musicBtn"
+            );
 
 
-        /* 音乐播放 / 暂停 */
-        musicBtn.onclick = () => {
 
-            if (bgMusic.paused) {
+        /*
+         * 点击“点开看看”
+         *
+         * BGM 就在这一瞬间开始。
+         */
 
-                bgMusic.play()
-                    .then(() => {
+        startIntroBtn.onclick = () => {
 
-                        musicBtn.innerText =
-                            "🔇 暂停音乐";
 
-                    })
-                    .catch(() => {});
+            bgMusic.play()
+                .then(() => {
 
-            } else {
 
-                bgMusic.pause();
+                    musicBtn.style.display =
+                        "block";
 
-                musicBtn.innerText =
-                    "🎵 播放音乐";
 
-            }
+                    musicBtn.innerText =
+                        "🔇 暂停音乐";
+
+
+                })
+                .catch(() => {
+
+                    /*
+                     * 如果浏览器阻止播放，
+                     * 右上角按钮仍然可以手动播放。
+                     */
+
+                    musicBtn.style.display =
+                        "block";
+
+
+                    musicBtn.innerText =
+                        "🎵 播放音乐";
+
+
+                });
+
+
+
+            /*
+             * 隐藏最开始的标题和按钮
+             */
+
+            introTitle.style.display =
+                "none";
+
+
+            startIntroBtn.style.display =
+                "none";
+
+
+
+            /*
+             * 第一行
+             */
+
+            setTimeout(() => {
+
+
+                introLine1.classList.add(
+                    "show"
+                );
+
+
+            }, 350);
+
+
+
+            /*
+             * 第二行
+             */
+
+            setTimeout(() => {
+
+
+                introLine2.classList.add(
+                    "show"
+                );
+
+
+            }, 2200);
+
+
+
+            /*
+             * 第三行
+             */
+
+            setTimeout(() => {
+
+
+                introLine3.classList.add(
+                    "show"
+                );
+
+
+            }, 4300);
+
+
+
+            /*
+             * 第四行
+             */
+
+            setTimeout(() => {
+
+
+                introLine4.classList.add(
+                    "show"
+                );
+
+
+            }, 6500);
+
+
+
+            /*
+             * 最后出现“所以……”
+             */
+
+            setTimeout(() => {
+
+
+                soBtn.style.display =
+                    "inline-block";
+
+
+            }, 8800);
+
 
         };
 
 
-        /* “不要”按钮动画 */
+
+        /* ==================================================
+           所以……
+        ================================================== */
+
+        soBtn.onclick = () => {
+
+
+            switchPage(
+                introPage,
+                page1
+            );
+
+
+        };
+
+
+
+        /* ==================================================
+           音乐播放 / 暂停
+        ================================================== */
+
+        musicBtn.onclick = () => {
+
+
+            if (bgMusic.paused) {
+
+
+                bgMusic.play()
+                    .then(() => {
+
+
+                        musicBtn.innerText =
+                            "🔇 暂停音乐";
+
+
+                    })
+                    .catch(() => {});
+
+
+            } else {
+
+
+                bgMusic.pause();
+
+
+                musicBtn.innerText =
+                    "🎵 播放音乐";
+
+
+            }
+
+
+        };
+
+
+
+        /* ==================================================
+           首页按钮
+        ================================================== */
+
+        const yesBtn =
+            document.getElementById(
+                "yesBtn"
+            );
+
+
+        const noBtn =
+            document.getElementById(
+                "noBtn"
+            );
+
+
+
+        /* ==================================================
+           最终结果
+        ================================================== */
+
+        const selTime =
+            document.getElementById(
+                "selTime"
+            );
+
+
+        const selFlowerLocation =
+            document.getElementById(
+                "selFlowerLocation"
+            );
+
+
+        const selDrink =
+            document.getElementById(
+                "selDrink"
+            );
+
+
+        const selDrinkLocation =
+            document.getElementById(
+                "selDrinkLocation"
+            );
+
+
+
+        /* ==================================================
+           所有选项
+        ================================================== */
+
+        const timeItems =
+            document.querySelectorAll(
+                ".time-item"
+            );
+
+
+        const flowerLocations =
+            document.querySelectorAll(
+                ".flower-location"
+            );
+
+
+        const drinkItems =
+            document.querySelectorAll(
+                ".drink-item"
+            );
+
+
+        const drinkLocations =
+            document.querySelectorAll(
+                ".drink-location"
+            );
+
+
+
+        /* ==================================================
+           “不要”按钮动画
+        ================================================== */
+
         let scaleYes = 1;
+
         let scaleNo = 1;
 
 
         function shrink() {
 
+
             scaleYes += 0.15;
+
+
             scaleNo -= 0.15;
 
+
             if (scaleNo < 0.2) {
+
                 scaleNo = 0.2;
+
             }
+
 
             yesBtn.style.transform =
                 `scale(${scaleYes})`;
 
+
             noBtn.style.transform =
                 `scale(${scaleNo})`;
 
+
         }
 
+
+
+        /*
+         * 电脑端鼠标碰到
+         */
 
         noBtn.addEventListener(
             "mouseover",
@@ -663,151 +1943,432 @@
         );
 
 
+
+        /*
+         * 手机 / 电脑点击
+         */
+
         noBtn.addEventListener(
             "click",
             (e) => {
 
+
                 e.preventDefault();
+
+
                 shrink();
+
 
             }
         );
 
 
-        /* 点击愿意 */
+
+        /* ==================================================
+           点击“好呀”
+        ================================================== */
+
         yesBtn.onclick = () => {
 
-            page1.classList.remove("active");
-            page2.classList.add("active");
 
-            bgMusic.play()
-                .then(() => {
+            switchPage(
+                page1,
+                page2
+            );
 
-                    musicBtn.innerText =
-                        "🔇 暂停音乐";
-
-                })
-                .catch(() => {});
 
         };
 
 
-        /* 选择鲜花时间 */
+
+        /* ==================================================
+           选择鲜花时间
+        ================================================== */
+
         timeItems.forEach(item => {
 
+
             item.onclick = () => {
+
 
                 const time =
                     item.dataset.t;
 
+
                 selTime.innerText =
                     time;
 
+
+
+                /*
+                 * 清除其他选项
+                 */
+
                 timeItems.forEach(i => {
-                    i.classList.remove("selected");
+
+
+                    i.classList.remove(
+                        "selected"
+                    );
+
+
                 });
 
-                item.classList.add("selected");
+
+
+                /*
+                 * 当前按钮选中
+                 */
+
+                item.classList.add(
+                    "selected"
+                );
+
+
+
+                /*
+                 * 先让选中动画展示一下
+                 */
 
                 setTimeout(() => {
 
-                    page2.classList.remove("active");
-                    page3.classList.add("active");
 
-                }, 300);
+                    switchPage(
+                        page2,
+                        page3
+                    );
+
+
+                }, 250);
+
 
             };
+
 
         });
 
 
-        /* 选择鲜花地点 */
+
+        /* ==================================================
+           选择鲜花地点
+        ================================================== */
+
         flowerLocations.forEach(item => {
+
 
             item.onclick = () => {
 
+
                 const location =
                     item.dataset.location;
+
 
                 selFlowerLocation.innerText =
                     location;
 
+
+
                 flowerLocations.forEach(i => {
-                    i.classList.remove("selected");
+
+
+                    i.classList.remove(
+                        "selected"
+                    );
+
+
                 });
 
-                item.classList.add("selected");
+
+
+                item.classList.add(
+                    "selected"
+                );
+
+
 
                 setTimeout(() => {
 
-                    page3.classList.remove("active");
-                    page4.classList.add("active");
 
-                }, 300);
+                    switchPage(
+                        page3,
+                        page4
+                    );
+
+
+                }, 250);
+
 
             };
+
 
         });
 
 
-        /* 选择奶茶 */
+
+        /* ==================================================
+           选择奶茶
+        ================================================== */
+
         drinkItems.forEach(item => {
 
+
             item.onclick = () => {
+
 
                 const drink =
                     item.dataset.d;
 
+
                 selDrink.innerText =
                     drink;
 
+
+
                 drinkItems.forEach(i => {
-                    i.classList.remove("selected");
+
+
+                    i.classList.remove(
+                        "selected"
+                    );
+
+
                 });
 
-                item.classList.add("selected");
+
+
+                item.classList.add(
+                    "selected"
+                );
+
+
 
                 setTimeout(() => {
 
-                    page4.classList.remove("active");
-                    page5.classList.add("active");
 
-                }, 300);
+                    switchPage(
+                        page4,
+                        page5
+                    );
+
+
+                }, 250);
+
 
             };
+
 
         });
 
 
-        /* 选择奶茶地点 */
+
+        /* ==================================================
+           选择奶茶地点
+        ================================================== */
+
         drinkLocations.forEach(item => {
 
+
             item.onclick = () => {
+
 
                 const location =
                     item.dataset.location;
 
+
                 selDrinkLocation.innerText =
                     location;
 
+
+
                 drinkLocations.forEach(i => {
-                    i.classList.remove("selected");
+
+
+                    i.classList.remove(
+                        "selected"
+                    );
+
+
                 });
 
-                item.classList.add("selected");
+
+
+                item.classList.add(
+                    "selected"
+                );
+
+
 
                 setTimeout(() => {
 
-                    page5.classList.remove("active");
-                    page6.classList.add("active");
 
-                }, 300);
+                    switchPage(
+                        page5,
+                        page6
+                    );
+
+
+                }, 250);
+
 
             };
 
+
         });
 
+
+
+        /* ==================================================
+           隐藏页面
+        ================================================== */
+
+        const secretTrigger =
+            document.getElementById(
+                "secretTrigger"
+            );
+
+
+        const secretBack =
+            document.getElementById(
+                "secretBack"
+            );
+
+
+
+        /*
+         * 记录进入隐藏页面前
+         * 用户所在的页面
+         */
+
+        let previousPage = null;
+
+
+
+        /*
+         * 点击左下角隐藏区域
+         */
+
+        secretTrigger.onclick = () => {
+
+
+            /*
+             * 正在切页时不触发
+             */
+
+            if (isTransitioning) {
+
+                return;
+
+            }
+
+
+
+            /*
+             * 如果已经在隐藏页面
+             * 不再重复进入
+             */
+
+            if (
+                secretPage.classList.contains(
+                    "active"
+                )
+            ) {
+
+                return;
+
+            }
+
+
+
+            /*
+             * 记录当前页面
+             */
+
+            previousPage =
+                document.querySelector(
+                    ".page.active"
+                );
+
+
+
+            /*
+             * 万一没有找到页面
+             */
+
+            if (!previousPage) {
+
+                return;
+
+            }
+
+
+
+            /*
+             * 暂时关闭隐藏入口
+             */
+
+            secretTrigger.style.pointerEvents =
+                "none";
+
+
+
+            /*
+             * 柔和进入秘密页面
+             */
+
+            switchPage(
+                previousPage,
+                secretPage
+            );
+
+
+        };
+
+
+
+        /* ==================================================
+           隐藏页面返回
+        ================================================== */
+
+        secretBack.onclick = () => {
+
+
+            /*
+             * 返回进入秘密页面之前
+             * 所在的那个页面
+             */
+
+            const targetPage =
+                previousPage || introPage;
+
+
+
+            switchPage(
+                secretPage,
+                targetPage
+            );
+
+
+
+            /*
+             * 动画完成以后
+             * 再恢复隐藏入口
+             */
+
+            setTimeout(() => {
+
+
+                secretTrigger.style.pointerEvents =
+                    "auto";
+
+
+            }, 900);
+
+
+        };
+
+
     </script>
+
 
 </body>
 </html>
