@@ -24,13 +24,23 @@
         .time-item:hover,.drink-item:hover{background:#f8b8c8;color:white;}
         .result-card{background:white;padding:30px;border-radius:20px;box-shadow:0 4px 15px #00000010;}
         .tip-text{margin-top:20px;font-size:15px;color:#b87088;}
+        /* 音乐播放按钮样式 */
+        #musicBtn{
+            position:fixed;top:20px;right:20px;padding:8px 14px;background:#f284a1;color:#fff;border-radius:20px;border:none;cursor:pointer;
+        }
     </style>
 </head>
 <body>
+<!-- 音乐控件，浏览器要求必须用户交互后才能播放音频 -->
+<audio id="bgMusic" loop>
+    <!-- 替换成你的音乐mp3链接 -->
+    <source src="music.mp3" type="audio/mpeg">
+
+<button id="musicBtn">🎵 播放音乐</button>
 
 <!-- 首页 -->
 <div class="page active" id="page1">
-    <h1>✨ 9.18 我们相识100天✨<br>想送你一束花，可以吗？</h1>
+    <h1>✨ 好豆豆 马上就要到我们认识的第100天啦<br>想送你一束花，可以吗？</h1>
     <div class="btn-box">
         <button id="yesBtn">愿意</button>
         <button id="noBtn">不要</button>
@@ -65,12 +75,12 @@
     </div>
 </div>
 
-<!-- 结果卡片 -->
+<!-- 结果卡片（已按截图修改文字） -->
 <div class="page" id="page4">
     <div class="result-card">
-        <h1>💌 预约成功！</h1>
-        <p>📅 日期：9月18日<br>⏰ 送达时间：<span id="selTime"></span><br>🥤 饮品：<span id="selDrink"></span><br>🌸 纪念：我们相识100天的鲜花</p>
-        <p class="tip-text">很高兴和你走过这100天，期待往后更多日子✨</p>
+        <h1>💌 鲜花预订成功</h1>
+        <p>📅 日期：9月18日<br>⏰ 送达时间：<span id="selTime"></span><br>🥤 饮品：<span id="selDrink"></span><br>🌸 纪念我们相识的100天</p>
+        <p class="tip-text">鲜花预订成功！</p>
     </div>
 </div>
 
@@ -81,6 +91,19 @@ const selTime=document.getElementById('selTime');
 const selDrink=document.getElementById('selDrink');
 const timeItems=document.querySelectorAll('.time-item');
 const drinkItems=document.querySelectorAll('.drink-item');
+const bgMusic = document.getElementById('bgMusic');
+const musicBtn = document.getElementById('musicBtn');
+
+// 音乐切换播放暂停
+musicBtn.onclick = ()=>{
+    if(bgMusic.paused){
+        bgMusic.play();
+        musicBtn.innerText = "🔇 暂停音乐";
+    }else{
+        bgMusic.pause();
+        musicBtn.innerText = "🎵 播放音乐";
+    }
+}
 
 let scaleYes=1,scaleNo=1;
 function shrink(){
@@ -92,7 +115,12 @@ function shrink(){
 noBtn.addEventListener('mouseover',shrink);
 noBtn.addEventListener('click',(e)=>{e.preventDefault();shrink();});
 
-yesBtn.onclick=()=>{page1.classList.remove('active');page2.classList.add('active');};
+yesBtn.onclick=()=>{
+    page1.classList.remove('active');
+    page2.classList.add('active');
+    // 用户点击愿意，自动播放背景音乐（浏览器允许）
+    bgMusic.play().then(()=>{musicBtn.innerText = "🔇 暂停音乐";}).catch(err=>{});
+};
 
 // 选择时间，跳转到选奶茶
 timeItems.forEach(item=>{
