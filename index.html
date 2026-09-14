@@ -6,7 +6,7 @@
 
     <meta
         name="viewport"
-        content="width=device-width, initial-scale=1.0"
+        content="width=device-width, initial-scale=1.0, viewport-fit=cover"
     >
 
     <title>100天纪念邀约</title>
@@ -25,11 +25,22 @@
             font-family:
                 "Microsoft Yahei",
                 "PingFang SC",
+                -apple-system,
+                BlinkMacSystemFont,
                 sans-serif;
         }
 
+
+        html,
+        body {
+            width: 100%;
+            min-height: 100%;
+        }
+
+
         body {
             min-height: 100vh;
+            min-height: 100dvh;
 
             background: #fff5f8;
 
@@ -38,7 +49,11 @@
             justify-content: center;
             flex-direction: column;
 
-            padding: 20px;
+            padding:
+                calc(20px + env(safe-area-inset-top, 0px))
+                calc(20px + env(safe-area-inset-right, 0px))
+                calc(20px + env(safe-area-inset-bottom, 0px))
+                calc(20px + env(safe-area-inset-left, 0px));
 
             overflow-x: hidden;
         }
@@ -58,6 +73,7 @@
             opacity: 0;
         }
 
+
         .page.active {
             display: block;
 
@@ -70,6 +86,7 @@
                 both;
         }
 
+
         .page.leaving {
             display: block;
 
@@ -81,6 +98,7 @@
                 ease
                 forwards;
         }
+
 
         @keyframes pageEnter {
 
@@ -100,6 +118,7 @@
                     scale(1);
             }
         }
+
 
         @keyframes pageLeave {
 
@@ -133,6 +152,7 @@
             font-weight: 500;
         }
 
+
         p {
             color: #777;
 
@@ -142,6 +162,7 @@
 
             line-height: 1.8;
         }
+
 
         button {
             padding: 14px 32px;
@@ -171,6 +192,7 @@
             margin: auto;
         }
 
+
         .intro-title {
             color: #c98397;
 
@@ -183,6 +205,7 @@
             letter-spacing: 1px;
         }
 
+
         #startIntroBtn,
         #soBtn {
             background: #f284a1;
@@ -194,6 +217,7 @@
                 rgba(242, 132, 161, 0.22);
         }
 
+
         #startIntroBtn:hover,
         #soBtn:hover {
             background: #eb7595;
@@ -204,6 +228,7 @@
                 0 8px 20px
                 rgba(242, 132, 161, 0.28);
         }
+
 
         #startIntroBtn:active,
         #soBtn:active {
@@ -239,15 +264,17 @@
                 margin-bottom 1.2s ease;
         }
 
+
         .intro-line.show {
             opacity: 1;
 
             transform: translateY(0);
 
-            max-height: 150px;
+            max-height: 160px;
 
             margin-bottom: 22px;
         }
+
 
         .intro-line.important {
             color: #d86b8a;
@@ -273,6 +300,7 @@
                 ease
                 forwards;
         }
+
 
         @keyframes buttonFade {
 
@@ -304,6 +332,7 @@
             flex-wrap: wrap;
         }
 
+
         #yesBtn {
             background: #f284a1;
 
@@ -312,6 +341,7 @@
             transform: scale(1);
         }
 
+
         #yesBtn:hover {
             background: #eb7595;
 
@@ -319,6 +349,7 @@
                 0 6px 16px
                 rgba(242, 132, 161, 0.28);
         }
+
 
         #noBtn {
             background: #e5e2e3;
@@ -345,6 +376,7 @@
             margin: 20px auto;
         }
 
+
         .time-list {
             grid-template-columns:
                 repeat(3, 1fr);
@@ -352,10 +384,12 @@
             max-width: 420px;
         }
 
+
         .drink-list {
             grid-template-columns:
                 repeat(4, 1fr);
         }
+
 
         .location-list {
             grid-template-columns:
@@ -363,6 +397,7 @@
 
             max-width: 360px;
         }
+
 
         .time-item,
         .drink-item,
@@ -384,11 +419,13 @@
                 box-shadow 0.18s ease;
         }
 
+
         .location-item {
             padding: 20px 15px;
 
             font-size: 18px;
         }
+
 
         .time-item:hover,
         .drink-item:hover,
@@ -404,11 +441,13 @@
                 rgba(216, 107, 138, 0.18);
         }
 
+
         .time-item:active,
         .drink-item:active,
         .location-item:active {
             transform: scale(0.94);
         }
+
 
         .time-item.selected,
         .drink-item.selected,
@@ -459,6 +498,7 @@
                 scale(0.96);
         }
 
+
         #page6.active .result-card {
             animation:
                 cardShow
@@ -467,6 +507,7 @@
                 0.15s
                 forwards;
         }
+
 
         @keyframes cardShow {
 
@@ -495,6 +536,7 @@
             }
         }
 
+
         .days-number {
             font-size: 58px;
 
@@ -509,6 +551,7 @@
             letter-spacing: 2px;
         }
 
+
         .days-text {
             color: #c47a90;
 
@@ -519,11 +562,13 @@
             margin-bottom: 28px;
         }
 
+
         .result-card h1 {
             margin-bottom: 20px;
 
             font-size: 25px;
         }
+
 
         .result-info {
             background: #fff7f9;
@@ -537,6 +582,7 @@
             text-align: left;
         }
 
+
         .result-info p {
             margin: 0;
 
@@ -544,6 +590,7 @@
 
             font-size: 16px;
         }
+
 
         .anniversary-text {
             margin-top: 18px;
@@ -557,6 +604,7 @@
             line-height: 1.9;
         }
 
+
         .tip-text {
             margin-top: 18px;
 
@@ -566,6 +614,7 @@
 
             color: #d28aa0;
         }
+
 
         .designer-signature {
             position: absolute;
@@ -585,7 +634,7 @@
 
 
         /* ==================================================
-           音乐按钮
+           音乐按钮 - 桌面端
         ================================================== */
 
         #musicBtn {
@@ -593,29 +642,71 @@
 
             position: fixed;
 
-            top: 20px;
+            top:
+                calc(
+                    16px +
+                    env(safe-area-inset-top, 0px)
+                );
 
-            right: 20px;
+            right:
+                calc(
+                    16px +
+                    env(safe-area-inset-right, 0px)
+                );
 
-            padding: 8px 14px;
+            padding: 9px 15px;
 
             background: #f284a1;
 
             color: white;
 
-            border-radius: 20px;
-
             border: none;
+
+            border-radius: 999px;
 
             cursor: pointer;
 
             font-size: 14px;
 
-            z-index: 100;
+            z-index: 10000;
+
+            white-space: nowrap;
+
+            align-items: center;
+
+            justify-content: center;
+
+            gap: 5px;
+
+            box-shadow:
+                0 4px 12px
+                rgba(242, 132, 161, 0.22);
         }
+
 
         #musicBtn:hover {
             background: #eb7595;
+        }
+
+
+        #musicBtn:active {
+            transform: scale(0.94);
+        }
+
+
+        #musicIcon {
+            display: inline-flex;
+
+            align-items: center;
+
+            justify-content: center;
+
+            line-height: 1;
+        }
+
+
+        #musicText {
+            line-height: 1;
         }
 
 
@@ -661,6 +752,7 @@
             margin: auto;
         }
 
+
         .secret-message {
             color: #d86b8a;
 
@@ -673,6 +765,7 @@
             letter-spacing: 1px;
         }
 
+
         #secretPage.active .secret-message {
             animation:
                 secretFade
@@ -680,6 +773,7 @@
                 ease
                 both;
         }
+
 
         @keyframes secretFade {
 
@@ -698,6 +792,7 @@
             }
         }
 
+
         #secretBack {
             margin-top: 40px;
 
@@ -713,36 +808,67 @@
                 1px solid #ead5db;
         }
 
+
         #secretBack:hover {
             background: #fff0f4;
         }
 
 
         /* ==================================================
-           手机适配
+           手机端
         ================================================== */
 
         @media (max-width: 600px) {
 
             body {
-                padding: 20px 15px;
+                padding:
+                    calc(
+                        16px +
+                        env(safe-area-inset-top, 0px)
+                    )
+                    calc(
+                        15px +
+                        env(safe-area-inset-right, 0px)
+                    )
+                    calc(
+                        16px +
+                        env(safe-area-inset-bottom, 0px)
+                    )
+                    calc(
+                        15px +
+                        env(safe-area-inset-left, 0px)
+                    );
             }
+
 
             h1 {
                 font-size: 22px;
+
+                line-height: 1.65;
             }
+
+
+            p {
+                font-size: 15px;
+            }
+
 
             .intro-title {
                 font-size: 18px;
             }
 
+
             .intro-line {
                 font-size: 18px;
+
+                line-height: 1.85;
             }
+
 
             .intro-line.important {
                 font-size: 20px;
             }
+
 
             .time-list {
                 grid-template-columns:
@@ -751,6 +877,7 @@
                 max-width: 300px;
             }
 
+
             .drink-list {
                 grid-template-columns:
                     repeat(2, 1fr);
@@ -758,30 +885,61 @@
                 max-width: 330px;
             }
 
+
             .location-list {
                 max-width: 300px;
             }
 
+
             .result-card {
+                width: min(92vw, 420px);
+
                 padding:
                     32px
                     22px
                     52px;
+
+                border-radius: 22px;
             }
+
 
             .days-number {
                 font-size: 52px;
             }
 
-            #musicBtn {
-                top: 12px;
 
-                right: 12px;
-
+            .days-text {
                 font-size: 12px;
 
-                padding: 7px 11px;
+                margin-bottom: 24px;
             }
+
+
+            .result-card h1 {
+                font-size: 22px;
+            }
+
+
+            .result-info {
+                padding: 18px;
+
+                border-radius: 14px;
+            }
+
+
+            .result-info p {
+                font-size: 15px;
+
+                line-height: 2;
+            }
+
+
+            .anniversary-text {
+                font-size: 15px;
+
+                line-height: 1.9;
+            }
+
 
             .designer-signature {
                 right: 15px;
@@ -791,14 +949,109 @@
                 font-size: 9px;
             }
 
+
             .secret-message {
                 font-size: 24px;
 
                 line-height: 1.9;
             }
+
+
+            /*
+             * 手机音乐按钮
+             *
+             * 自动变成圆形，
+             * 只显示图标
+             */
+
+            #musicBtn {
+                top:
+                    calc(
+                        10px +
+                        env(safe-area-inset-top, 0px)
+                    );
+
+                right:
+                    calc(
+                        10px +
+                        env(safe-area-inset-right, 0px)
+                    );
+
+                width: 42px;
+
+                height: 42px;
+
+                min-width: 42px;
+
+                padding: 0;
+
+                border-radius: 50%;
+
+                font-size: 18px;
+
+                box-shadow:
+                    0 4px 12px
+                    rgba(242, 132, 161, 0.24);
+            }
+
+
+            /*
+             * 手机隐藏：
+             * “暂停音乐 / 播放音乐”
+             */
+
+            #musicText {
+                display: none;
+            }
+
+        }
+
+
+        /* ==================================================
+           特别小屏幕
+        ================================================== */
+
+        @media (max-width: 380px) {
+
+            h1 {
+                font-size: 20px;
+            }
+
+
+            .result-card {
+                width: 94vw;
+
+                padding:
+                    28px
+                    18px
+                    48px;
+            }
+
+
+            .result-info p {
+                font-size: 14px;
+            }
+
+
+            .anniversary-text {
+                font-size: 14px;
+            }
+
+
+            #musicBtn {
+                width: 38px;
+
+                height: 38px;
+
+                min-width: 38px;
+
+                font-size: 16px;
+            }
+
         }
 
     </style>
+
 </head>
 
 
@@ -809,23 +1062,46 @@
          背景音乐
     ================================================== -->
 
-    <audio id="bgMusic" loop>
+    <audio
+        id="bgMusic"
+        loop
+        preload="auto"
+    >
+
         <source
             src="music.mp3"
             type="audio/mpeg"
         >
+
     </audio>
 
 
-    <button id="musicBtn">
-        🔇 暂停音乐
+
+    <!-- ==================================================
+         音乐按钮
+    ================================================== -->
+
+    <button
+        id="musicBtn"
+        aria-label="暂停音乐"
+        title="暂停音乐"
+    >
+
+        <span id="musicIcon">
+            🔇
+        </span>
+
+        <span id="musicText">
+            暂停音乐
+        </span>
+
     </button>
 
 
 
     <!-- ==================================================
          隐藏入口
-
+         
          左下角最边缘
     ================================================== -->
 
@@ -845,59 +1121,95 @@
         id="introPage"
     >
 
+
         <div
             class="intro-title"
             id="introTitle"
         >
+
             有些话，我想慢慢说给你听。
+
         </div>
 
 
         <button id="startIntroBtn">
+
             点开看看
+
         </button>
 
+
+
+        <!-- 第一段 -->
 
         <div
             class="intro-line important"
             id="introLine1"
         >
+
             我们相识于 6 月 11 日。
+
         </div>
 
+
+
+        <!-- 第二段 -->
 
         <div
             class="intro-line"
             id="introLine2"
         >
+
             到现在我还记得，
+
             <br>
+
             我们最近一次线下见面是在 7 月 14 日。
+
         </div>
 
+
+
+        <!-- 第三段 -->
 
         <div
             class="intro-line"
             id="introLine3"
         >
+
             不知不觉，
+
             <br>
+
             这个周五就已经是我们认识的第 100 天了。
+
         </div>
 
+
+
+        <!-- 第四段 -->
 
         <div
             class="intro-line"
             id="introLine4"
         >
+
             一百天好像也没有很久，
+
             <br>
+
             但回头一看，已经有了一些值得记住的事情。
+
         </div>
 
 
+
+        <!-- 最后出现 -->
+
         <button id="soBtn">
+
             所以……
+
         </button>
 
 
@@ -915,23 +1227,34 @@
         id="page1"
     >
 
+
         <h1>
+
             ✨ 好豆豆
+
             <br>
+
             我想要送你一束花，可以吗？
+
         </h1>
 
 
         <div class="btn-box">
 
+
             <button id="yesBtn">
+
                 好呀
+
             </button>
 
 
             <button id="noBtn">
+
                 不要
+
             </button>
+
 
         </div>
 
@@ -950,17 +1273,23 @@
         id="page2"
     >
 
+
         <h1>
+
             🌸 那就挑一个你方便收到花的时间吧
+
         </h1>
 
 
         <p>
+
             9月18日下午，我会让它在你选好的时间去见你。
+
         </p>
 
 
         <div class="time-list">
+
 
             <div
                 class="time-item"
@@ -1009,6 +1338,7 @@
                 20:00
             </div>
 
+
         </div>
 
 
@@ -1026,24 +1356,35 @@
         id="page3"
     >
 
+
         <h1>
+
             🌷 想让这束花去哪里找你呢？
+
         </h1>
 
 
         <p>
+
             学校也好，家里也好，
+
+            <br>
+
             选一个你最方便的地方就好。
+
         </p>
 
 
         <div class="location-list">
 
+
             <div
                 class="location-item flower-location"
                 data-location="学校"
             >
+
                 🏫 学校
+
             </div>
 
 
@@ -1051,8 +1392,11 @@
                 class="location-item flower-location"
                 data-location="家里"
             >
+
                 🏠 家里
+
             </div>
+
 
         </div>
 
@@ -1071,23 +1415,31 @@
         id="page4"
     >
 
+
         <h1>
+
             🥤 花都有了，好像还差一个东西
+
         </h1>
 
 
         <p>
+
             再挑一杯你想喝的吧
+
         </p>
 
 
         <div class="drink-list">
 
+
             <div
                 class="drink-item"
                 data-d="喜茶"
             >
+
                 喜茶
+
             </div>
 
 
@@ -1095,7 +1447,9 @@
                 class="drink-item"
                 data-d="奈雪"
             >
+
                 奈雪
+
             </div>
 
 
@@ -1103,7 +1457,9 @@
                 class="drink-item"
                 data-d="茉莉奶白"
             >
+
                 茉莉奶白
+
             </div>
 
 
@@ -1111,8 +1467,11 @@
                 class="drink-item"
                 data-d="茶百道"
             >
+
                 茶百道
+
             </div>
+
 
         </div>
 
@@ -1131,24 +1490,35 @@
         id="page5"
     >
 
+
         <h1>
+
             🧋 那这杯奶茶要去哪里找你呢？
+
         </h1>
 
 
         <p>
+
             不一定要和花送到同一个地方，
+
+            <br>
+
             你觉得方便就好。
+
         </p>
 
 
         <div class="location-list">
 
+
             <div
                 class="location-item drink-location"
                 data-location="学校"
             >
+
                 🏫 学校
+
             </div>
 
 
@@ -1156,8 +1526,11 @@
                 class="location-item drink-location"
                 data-location="家里"
             >
+
                 🏠 家里
+
             </div>
+
 
         </div>
 
@@ -1168,7 +1541,7 @@
 
     <!-- ==================================================
          PAGE 6
-         最终纪念卡
+         最终卡片
     ================================================== -->
 
     <div
@@ -1176,25 +1549,34 @@
         id="page6"
     >
 
+
         <div class="result-card">
 
 
             <div class="days-number">
+
                 100
+
             </div>
 
 
             <div class="days-text">
+
                 DAYS
+
             </div>
 
 
             <h1>
+
                 💌 好啦，都记住了
+
             </h1>
 
 
+
             <div class="result-info">
+
 
                 <p>
 
@@ -1222,7 +1604,9 @@
 
                 </p>
 
+
             </div>
+
 
 
             <p class="anniversary-text">
@@ -1232,25 +1616,35 @@
                 <br><br>
 
                 希望你收到这束花的时候，
+
                 <br>
+
                 能开心一点就好。
 
                 <br><br>
 
                 很开心认识你，
+
                 <br>
+
                 也希望以后还能有更多值得记住的事情。
 
             </p>
 
 
+
             <p class="tip-text">
+
                 请截图给我吧！
+
             </p>
 
 
+
             <div class="designer-signature">
+
                 Designed by DYR for HSY
+
             </div>
 
 
@@ -1262,13 +1656,14 @@
 
 
     <!-- ==================================================
-         隐藏告白页面
+         隐藏页面
     ================================================== -->
 
     <div
         class="page"
         id="secretPage"
     >
+
 
         <div class="secret-message">
 
@@ -1282,7 +1677,9 @@
 
 
         <button id="secretBack">
+
             返回
+
         </button>
 
 
@@ -1349,12 +1746,6 @@
             );
 
 
-        const allPages =
-            document.querySelectorAll(
-                ".page"
-            );
-
-
 
         /* ==================================================
            页面柔和切换
@@ -1384,6 +1775,10 @@
             isTransitioning = true;
 
 
+            /*
+             * 旧页面淡出
+             */
+
             fromPage.classList.add(
                 "leaving"
             );
@@ -1397,6 +1792,10 @@
                     "leaving"
                 );
 
+
+                /*
+                 * 新页面淡入
+                 */
 
                 toPage.classList.add(
                     "active"
@@ -1480,6 +1879,80 @@
             );
 
 
+        const musicIcon =
+            document.getElementById(
+                "musicIcon"
+            );
+
+
+        const musicText =
+            document.getElementById(
+                "musicText"
+            );
+
+
+
+        /*
+         * 统一控制音乐按钮显示状态
+         */
+
+        function updateMusicButton(
+            playing
+        ) {
+
+
+            if (playing) {
+
+
+                musicIcon.innerText =
+                    "🔇";
+
+
+                musicText.innerText =
+                    "暂停音乐";
+
+
+                musicBtn.setAttribute(
+                    "aria-label",
+                    "暂停音乐"
+                );
+
+
+                musicBtn.setAttribute(
+                    "title",
+                    "暂停音乐"
+                );
+
+
+            } else {
+
+
+                musicIcon.innerText =
+                    "🎵";
+
+
+                musicText.innerText =
+                    "播放音乐";
+
+
+                musicBtn.setAttribute(
+                    "aria-label",
+                    "播放音乐"
+                );
+
+
+                musicBtn.setAttribute(
+                    "title",
+                    "播放音乐"
+                );
+
+
+            }
+
+
+        }
+
+
 
         /* ==================================================
            点击“点开看看”
@@ -1489,7 +1962,8 @@
 
 
             /*
-             * 点击这一瞬间开始播放音乐
+             * 点击的一瞬间
+             * 开始播放 BGM
              */
 
             bgMusic.play()
@@ -1497,23 +1971,30 @@
 
 
                     musicBtn.style.display =
-                        "block";
+                        "flex";
 
 
-                    musicBtn.innerText =
-                        "🔇 暂停音乐";
+                    updateMusicButton(
+                        true
+                    );
 
 
                 })
                 .catch(() => {
 
 
+                    /*
+                     * 如果浏览器阻止播放
+                     * 就显示手动播放按钮
+                     */
+
                     musicBtn.style.display =
-                        "block";
+                        "flex";
 
 
-                    musicBtn.innerText =
-                        "🎵 播放音乐";
+                    updateMusicButton(
+                        false
+                    );
 
 
                 });
@@ -1521,7 +2002,8 @@
 
 
             /*
-             * 开场标题和按钮淡出
+             * 开场标题与按钮
+             * 先柔和淡出
              */
 
             introTitle.style.transition =
@@ -1656,7 +2138,7 @@
 
 
         /* ==================================================
-           音乐播放 / 暂停
+           音乐按钮
         ================================================== */
 
         musicBtn.onclick = () => {
@@ -1669,12 +2151,21 @@
                     .then(() => {
 
 
-                        musicBtn.innerText =
-                            "🔇 暂停音乐";
+                        updateMusicButton(
+                            true
+                        );
 
 
                     })
-                    .catch(() => {});
+                    .catch(() => {
+
+
+                        updateMusicButton(
+                            false
+                        );
+
+
+                    });
 
 
             } else {
@@ -1683,8 +2174,9 @@
                 bgMusic.pause();
 
 
-                musicBtn.innerText =
-                    "🎵 播放音乐";
+                updateMusicButton(
+                    false
+                );
 
 
             }
@@ -1694,8 +2186,38 @@
 
 
 
+        /*
+         * 如果音乐因为其他原因暂停，
+         * UI 也同步。
+         */
+
+        bgMusic.addEventListener(
+            "pause",
+            () => {
+
+                updateMusicButton(
+                    false
+                );
+
+            }
+        );
+
+
+        bgMusic.addEventListener(
+            "play",
+            () => {
+
+                updateMusicButton(
+                    true
+                );
+
+            }
+        );
+
+
+
         /* ==================================================
-           首页
+           首页按钮
         ================================================== */
 
         const yesBtn =
@@ -1805,11 +2327,21 @@
         }
 
 
+
+        /*
+         * 电脑端
+         */
+
         noBtn.addEventListener(
             "mouseover",
             shrink
         );
 
+
+
+        /*
+         * 手机 / 电脑点击
+         */
 
         noBtn.addEventListener(
             "click",
@@ -1862,6 +2394,7 @@
                     time;
 
 
+
                 timeItems.forEach(i => {
 
 
@@ -1873,9 +2406,11 @@
                 });
 
 
+
                 item.classList.add(
                     "selected"
                 );
+
 
 
                 setTimeout(() => {
@@ -1915,6 +2450,7 @@
                     location;
 
 
+
                 flowerLocations.forEach(i => {
 
 
@@ -1926,9 +2462,11 @@
                 });
 
 
+
                 item.classList.add(
                     "selected"
                 );
+
 
 
                 setTimeout(() => {
@@ -1968,6 +2506,7 @@
                     drink;
 
 
+
                 drinkItems.forEach(i => {
 
 
@@ -1979,9 +2518,11 @@
                 });
 
 
+
                 item.classList.add(
                     "selected"
                 );
+
 
 
                 setTimeout(() => {
@@ -2021,6 +2562,7 @@
                     location;
 
 
+
                 drinkLocations.forEach(i => {
 
 
@@ -2032,9 +2574,11 @@
                 });
 
 
+
                 item.classList.add(
                     "selected"
                 );
+
 
 
                 setTimeout(() => {
@@ -2101,6 +2645,7 @@
             }
 
 
+
             previousPage =
                 document.querySelector(
                     ".page.active"
@@ -2114,8 +2659,15 @@
             }
 
 
+
+            /*
+             * 进入隐藏页面期间
+             * 暂时关闭入口
+             */
+
             secretTrigger.style.pointerEvents =
                 "none";
+
 
 
             switchPage(
@@ -2136,7 +2688,8 @@
 
 
             const targetPage =
-                previousPage || introPage;
+                previousPage ||
+                introPage;
 
 
             switchPage(
