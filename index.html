@@ -80,7 +80,6 @@
             transform: scale(1);
         }
 
-        /* 通用选择区域 */
         .time-list,
         .drink-list,
         .location-list {
@@ -90,7 +89,11 @@
             margin: 20px auto;
         }
 
-        .time-list,
+        .time-list {
+            grid-template-columns: repeat(3, 1fr);
+            max-width: 420px;
+        }
+
         .drink-list {
             grid-template-columns: repeat(4, 1fr);
         }
@@ -100,7 +103,6 @@
             max-width: 360px;
         }
 
-        /* 通用选项 */
         .time-item,
         .drink-item,
         .location-item {
@@ -137,7 +139,6 @@
             transform: scale(0.94);
         }
 
-        /* 点击后的选中动画 */
         .time-item.selected,
         .drink-item.selected,
         .location-item.selected {
@@ -147,12 +148,12 @@
             box-shadow: 0 8px 18px rgba(242, 132, 161, 0.28);
         }
 
-        /* 100天最终纪念卡片 */
         .result-card {
+            position: relative;
             width: min(90vw, 440px);
             margin: auto;
             background: white;
-            padding: 38px 30px;
+            padding: 38px 30px 55px;
             border-radius: 24px;
 
             box-shadow:
@@ -234,7 +235,16 @@
             color: #d28aa0;
         }
 
-        /* 音乐按钮 */
+        .designer-signature {
+            position: absolute;
+            right: 18px;
+            bottom: 14px;
+            font-size: 10px;
+            color: #c8a2ad;
+            letter-spacing: 0.5px;
+            font-style: italic;
+        }
+
         #musicBtn {
             position: fixed;
             top: 20px;
@@ -253,7 +263,6 @@
             background: #eb7595;
         }
 
-        /* 手机适配 */
         @media (max-width: 600px) {
 
             body {
@@ -264,7 +273,11 @@
                 font-size: 22px;
             }
 
-            .time-list,
+            .time-list {
+                grid-template-columns: repeat(2, 1fr);
+                max-width: 300px;
+            }
+
             .drink-list {
                 grid-template-columns: repeat(2, 1fr);
                 max-width: 330px;
@@ -275,7 +288,7 @@
             }
 
             .result-card {
-                padding: 32px 22px;
+                padding: 32px 22px 52px;
             }
 
             .days-number {
@@ -287,6 +300,12 @@
                 right: 12px;
                 font-size: 12px;
                 padding: 7px 11px;
+            }
+
+            .designer-signature {
+                right: 15px;
+                bottom: 12px;
+                font-size: 9px;
             }
         }
     </style>
@@ -304,9 +323,7 @@
     </button>
 
 
-    <!-- =====================
-         PAGE 1 首页
-    ====================== -->
+    <!-- PAGE 1：首页 -->
     <div class="page active" id="page1">
 
         <h1>
@@ -330,9 +347,7 @@
     </div>
 
 
-    <!-- =====================
-         PAGE 2 鲜花时间
-    ====================== -->
+    <!-- PAGE 2：选择鲜花时间 -->
     <div class="page" id="page2">
 
         <h1>
@@ -340,29 +355,41 @@
         </h1>
 
         <p>
-            请选择9月18日下午鲜花送达的整点时间
+            请选择9月18日下午3点至晚上8点的整点时间
         </p>
 
         <div class="time-list">
 
-            <div class="time-item" data-t="13:00">13:00</div>
-            <div class="time-item" data-t="14:00">14:00</div>
-            <div class="time-item" data-t="15:00">15:00</div>
-            <div class="time-item" data-t="16:00">16:00</div>
+            <div class="time-item" data-t="15:00">
+                15:00
+            </div>
 
-            <div class="time-item" data-t="17:00">17:00</div>
-            <div class="time-item" data-t="18:00">18:00</div>
-            <div class="time-item" data-t="19:00">19:00</div>
-            <div class="time-item" data-t="20:00">20:00</div>
+            <div class="time-item" data-t="16:00">
+                16:00
+            </div>
+
+            <div class="time-item" data-t="17:00">
+                17:00
+            </div>
+
+            <div class="time-item" data-t="18:00">
+                18:00
+            </div>
+
+            <div class="time-item" data-t="19:00">
+                19:00
+            </div>
+
+            <div class="time-item" data-t="20:00">
+                20:00
+            </div>
 
         </div>
 
     </div>
 
 
-    <!-- =====================
-         PAGE 3 鲜花地点
-    ====================== -->
+    <!-- PAGE 3：选择鲜花地点 -->
     <div class="page" id="page3">
 
         <h1>
@@ -392,9 +419,7 @@
     </div>
 
 
-    <!-- =====================
-         PAGE 4 奶茶选择
-    ====================== -->
+    <!-- PAGE 4：选择奶茶 -->
     <div class="page" id="page4">
 
         <h1>
@@ -428,9 +453,7 @@
     </div>
 
 
-    <!-- =====================
-         PAGE 5 奶茶地点
-    ====================== -->
+    <!-- PAGE 5：选择奶茶地点 -->
     <div class="page" id="page5">
 
         <h1>
@@ -460,9 +483,7 @@
     </div>
 
 
-    <!-- =====================
-         PAGE 6 最终纪念卡片
-    ====================== -->
+    <!-- PAGE 6：最终100天纪念卡片 -->
     <div class="page" id="page6">
 
         <div class="result-card">
@@ -478,7 +499,6 @@
             <h1>
                 💌 鲜花预订成功
             </h1>
-
 
             <div class="result-info">
 
@@ -523,8 +543,13 @@
 
 
             <p class="tip-text">
-                请截图分享给你认为重要的人
+                请截图给他吧！
             </p>
+
+
+            <div class="designer-signature">
+                Designed by DYR for HSY
+            </div>
 
         </div>
 
@@ -547,7 +572,7 @@
         const noBtn = document.getElementById("noBtn");
 
 
-        /* 最终显示数据 */
+        /* 最终结果元素 */
         const selTime =
             document.getElementById("selTime");
 
@@ -583,9 +608,7 @@
             document.getElementById("musicBtn");
 
 
-        /* =====================
-           音乐播放 / 暂停
-        ====================== */
+        /* 音乐播放 / 暂停 */
         musicBtn.onclick = () => {
 
             if (bgMusic.paused) {
@@ -611,10 +634,7 @@
         };
 
 
-        /* =====================
-           “不要”按钮效果
-        ====================== */
-
+        /* “不要”按钮动画 */
         let scaleYes = 1;
         let scaleNo = 1;
 
@@ -622,16 +642,11 @@
         function shrink() {
 
             scaleYes += 0.15;
-
             scaleNo -= 0.15;
 
-
             if (scaleNo < 0.2) {
-
                 scaleNo = 0.2;
-
             }
-
 
             yesBtn.style.transform =
                 `scale(${scaleYes})`;
@@ -653,23 +668,17 @@
             (e) => {
 
                 e.preventDefault();
-
                 shrink();
 
             }
         );
 
 
-        /* =====================
-           点击愿意
-        ====================== */
-
+        /* 点击愿意 */
         yesBtn.onclick = () => {
 
             page1.classList.remove("active");
-
             page2.classList.add("active");
-
 
             bgMusic.play()
                 .then(() => {
@@ -683,10 +692,7 @@
         };
 
 
-        /* =====================
-           选择鲜花送达时间
-        ====================== */
-
+        /* 选择鲜花时间 */
         timeItems.forEach(item => {
 
             item.onclick = () => {
@@ -694,25 +700,18 @@
                 const time =
                     item.dataset.t;
 
-
                 selTime.innerText =
                     time;
 
-
                 timeItems.forEach(i => {
-
                     i.classList.remove("selected");
-
                 });
 
-
                 item.classList.add("selected");
-
 
                 setTimeout(() => {
 
                     page2.classList.remove("active");
-
                     page3.classList.add("active");
 
                 }, 300);
@@ -722,10 +721,7 @@
         });
 
 
-        /* =====================
-           选择鲜花地点
-        ====================== */
-
+        /* 选择鲜花地点 */
         flowerLocations.forEach(item => {
 
             item.onclick = () => {
@@ -733,25 +729,18 @@
                 const location =
                     item.dataset.location;
 
-
                 selFlowerLocation.innerText =
                     location;
 
-
                 flowerLocations.forEach(i => {
-
                     i.classList.remove("selected");
-
                 });
 
-
                 item.classList.add("selected");
-
 
                 setTimeout(() => {
 
                     page3.classList.remove("active");
-
                     page4.classList.add("active");
 
                 }, 300);
@@ -761,10 +750,7 @@
         });
 
 
-        /* =====================
-           选择奶茶
-        ====================== */
-
+        /* 选择奶茶 */
         drinkItems.forEach(item => {
 
             item.onclick = () => {
@@ -772,25 +758,18 @@
                 const drink =
                     item.dataset.d;
 
-
                 selDrink.innerText =
                     drink;
 
-
                 drinkItems.forEach(i => {
-
                     i.classList.remove("selected");
-
                 });
 
-
                 item.classList.add("selected");
-
 
                 setTimeout(() => {
 
                     page4.classList.remove("active");
-
                     page5.classList.add("active");
 
                 }, 300);
@@ -800,10 +779,7 @@
         });
 
 
-        /* =====================
-           选择奶茶地点
-        ====================== */
-
+        /* 选择奶茶地点 */
         drinkLocations.forEach(item => {
 
             item.onclick = () => {
@@ -811,25 +787,18 @@
                 const location =
                     item.dataset.location;
 
-
                 selDrinkLocation.innerText =
                     location;
 
-
                 drinkLocations.forEach(i => {
-
                     i.classList.remove("selected");
-
                 });
 
-
                 item.classList.add("selected");
-
 
                 setTimeout(() => {
 
                     page5.classList.remove("active");
-
                     page6.classList.add("active");
 
                 }, 300);
