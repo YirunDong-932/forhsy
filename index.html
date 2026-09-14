@@ -4,143 +4,841 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>100天纪念邀约</title>
+
     <style>
-        *{margin:0;padding:0;box-sizing:border-box;font-family:"Microsoft Yahei",sans-serif;}
-        body{
-            min-height:100vh;background:#fff5f8;
-            display:flex;align-items:center;justify-content:center;flex-direction:column;
-            padding:20px;overflow-x:hidden;
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: "Microsoft Yahei", sans-serif;
         }
-        .page{display:none;text-align:center;}
-        .page.active{display:block;}
-        h1{color:#d86b8a;margin-bottom:30px;font-size:26px;line-height:1.6;}
-        p{color:#666;margin-bottom:20px;font-size:17px;}
-        .btn-box{display:flex;gap:30px;justify-content:center;flex-wrap:wrap;}
-        button{padding:14px 32px;font-size:18px;border:none;border-radius:99px;cursor:pointer;transition:0.3s ease all;}
-        #yesBtn{background:#f284a1;color:white;transform:scale(1);}
-        #noBtn{background:#ddd;color:#333;transform:scale(1);}
-        .time-list,.drink-list{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;max-width:500px;margin:20px auto;}
-        .time-item,.drink-item{padding:10px;background:#ffe6ec;border-radius:8px;cursor:pointer;}
-        .time-item:hover,.drink-item:hover{background:#f8b8c8;color:white;}
-        .result-card{background:white;padding:30px;border-radius:20px;box-shadow:0 4px 15px #00000010;}
-        .tip-text{margin-top:20px;font-size:15px;color:#b87088;}
-        /* 音乐播放按钮样式 */
-        #musicBtn{
-            position:fixed;top:20px;right:20px;padding:8px 14px;background:#f284a1;color:#fff;border-radius:20px;border:none;cursor:pointer;
+
+        body {
+            min-height: 100vh;
+            background: #fff5f8;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+            padding: 20px;
+            overflow-x: hidden;
+        }
+
+        .page {
+            display: none;
+            text-align: center;
+            width: 100%;
+        }
+
+        .page.active {
+            display: block;
+        }
+
+        h1 {
+            color: #d86b8a;
+            margin-bottom: 30px;
+            font-size: 26px;
+            line-height: 1.6;
+        }
+
+        p {
+            color: #666;
+            margin-bottom: 20px;
+            font-size: 17px;
+        }
+
+        .btn-box {
+            display: flex;
+            gap: 30px;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        button {
+            padding: 14px 32px;
+            font-size: 18px;
+            border: none;
+            border-radius: 99px;
+            cursor: pointer;
+            transition: 0.3s ease all;
+        }
+
+        #yesBtn {
+            background: #f284a1;
+            color: white;
+            transform: scale(1);
+        }
+
+        #yesBtn:hover {
+            background: #eb7595;
+            box-shadow: 0 6px 16px rgba(242, 132, 161, 0.28);
+        }
+
+        #noBtn {
+            background: #ddd;
+            color: #333;
+            transform: scale(1);
+        }
+
+        /* 通用选择区域 */
+        .time-list,
+        .drink-list,
+        .location-list {
+            display: grid;
+            gap: 12px;
+            max-width: 500px;
+            margin: 20px auto;
+        }
+
+        .time-list,
+        .drink-list {
+            grid-template-columns: repeat(4, 1fr);
+        }
+
+        .location-list {
+            grid-template-columns: repeat(2, 1fr);
+            max-width: 360px;
+        }
+
+        /* 通用选项 */
+        .time-item,
+        .drink-item,
+        .location-item {
+            padding: 13px 10px;
+            background: #ffe6ec;
+            color: #80515e;
+            border-radius: 10px;
+            cursor: pointer;
+
+            transition:
+                transform 0.18s ease,
+                background 0.18s ease,
+                color 0.18s ease,
+                box-shadow 0.18s ease;
+        }
+
+        .location-item {
+            padding: 20px 15px;
+            font-size: 18px;
+        }
+
+        .time-item:hover,
+        .drink-item:hover,
+        .location-item:hover {
+            background: #f8b8c8;
+            color: white;
+            transform: translateY(-3px);
+            box-shadow: 0 6px 14px rgba(216, 107, 138, 0.18);
+        }
+
+        .time-item:active,
+        .drink-item:active,
+        .location-item:active {
+            transform: scale(0.94);
+        }
+
+        /* 点击后的选中动画 */
+        .time-item.selected,
+        .drink-item.selected,
+        .location-item.selected {
+            background: #f284a1;
+            color: white;
+            transform: scale(1.08);
+            box-shadow: 0 8px 18px rgba(242, 132, 161, 0.28);
+        }
+
+        /* 100天最终纪念卡片 */
+        .result-card {
+            width: min(90vw, 440px);
+            margin: auto;
+            background: white;
+            padding: 38px 30px;
+            border-radius: 24px;
+
+            box-shadow:
+                0 10px 35px rgba(216, 107, 138, 0.13),
+                0 3px 10px rgba(0, 0, 0, 0.04);
+
+            opacity: 0;
+            transform: translateY(25px) scale(0.96);
+        }
+
+        #page6.active .result-card {
+            animation: cardShow 0.75s cubic-bezier(.2, .8, .2, 1) forwards;
+        }
+
+        @keyframes cardShow {
+            0% {
+                opacity: 0;
+                transform: translateY(30px) scale(0.94);
+            }
+
+            60% {
+                opacity: 1;
+                transform: translateY(-4px) scale(1.01);
+            }
+
+            100% {
+                opacity: 1;
+                transform: translateY(0) scale(1);
+            }
+        }
+
+        .days-number {
+            font-size: 58px;
+            font-weight: bold;
+            color: #f284a1;
+            line-height: 1;
+            margin-bottom: 8px;
+            letter-spacing: 2px;
+        }
+
+        .days-text {
+            color: #c47a90;
+            font-size: 13px;
+            letter-spacing: 6px;
+            margin-bottom: 28px;
+        }
+
+        .result-card h1 {
+            margin-bottom: 20px;
+            font-size: 25px;
+        }
+
+        .result-info {
+            background: #fff7f9;
+            padding: 20px;
+            border-radius: 15px;
+            margin-bottom: 22px;
+            text-align: left;
+        }
+
+        .result-info p {
+            margin: 0;
+            line-height: 2.1;
+            font-size: 16px;
+        }
+
+        .anniversary-text {
+            margin-top: 18px;
+            margin-bottom: 10px;
+            font-size: 16px;
+            color: #b87088;
+            line-height: 1.9;
+        }
+
+        .tip-text {
+            margin-top: 18px;
+            margin-bottom: 0;
+            font-size: 14px;
+            color: #d28aa0;
+        }
+
+        /* 音乐按钮 */
+        #musicBtn {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            padding: 8px 14px;
+            background: #f284a1;
+            color: #fff;
+            border-radius: 20px;
+            border: none;
+            cursor: pointer;
+            font-size: 14px;
+            z-index: 100;
+        }
+
+        #musicBtn:hover {
+            background: #eb7595;
+        }
+
+        /* 手机适配 */
+        @media (max-width: 600px) {
+
+            body {
+                padding: 20px 15px;
+            }
+
+            h1 {
+                font-size: 22px;
+            }
+
+            .time-list,
+            .drink-list {
+                grid-template-columns: repeat(2, 1fr);
+                max-width: 330px;
+            }
+
+            .location-list {
+                max-width: 300px;
+            }
+
+            .result-card {
+                padding: 32px 22px;
+            }
+
+            .days-number {
+                font-size: 52px;
+            }
+
+            #musicBtn {
+                top: 12px;
+                right: 12px;
+                font-size: 12px;
+                padding: 7px 11px;
+            }
         }
     </style>
 </head>
+
 <body>
-<!-- 音乐控件，浏览器要求必须用户交互后才能播放音频 -->
-<audio id="bgMusic" loop>
-    <!-- 替换成你的音乐mp3链接 -->
-    <source src="music.mp3" type="audio/mpeg">
 
-<button id="musicBtn">🎵 播放音乐</button>
+    <!-- 背景音乐 -->
+    <audio id="bgMusic" loop>
+        <source src="music.mp3" type="audio/mpeg">
+    </audio>
 
-<!-- 首页 -->
-<div class="page active" id="page1">
-    <h1>✨ 好豆豆 马上就要到我们认识的第100天啦<br>想送你一束花，可以吗？</h1>
-    <div class="btn-box">
-        <button id="yesBtn">愿意</button>
-        <button id="noBtn">不要</button>
+    <button id="musicBtn">
+        🎵 播放音乐
+    </button>
+
+
+    <!-- =====================
+         PAGE 1 首页
+    ====================== -->
+    <div class="page active" id="page1">
+
+        <h1>
+            ✨ 好豆豆 马上就要到我们认识的第100天啦
+            <br>
+            想送你一束花，可以吗？
+        </h1>
+
+        <div class="btn-box">
+
+            <button id="yesBtn">
+                愿意
+            </button>
+
+            <button id="noBtn">
+                不要
+            </button>
+
+        </div>
+
     </div>
-</div>
 
-<!-- 选时间页面（只保留下午时段） -->
-<div class="page" id="page2">
-    <h1>挑选鲜花送达时间</h1>
-    <p>请选择9月18日下午鲜花送达的整点时间</p>
-    <div class="time-list">
-        <div class="time-item" data-t="13:00">13:00</div>
-        <div class="time-item" data-t="14:00">14:00</div>
-        <div class="time-item" data-t="15:00">15:00</div>
-        <div class="time-item" data-t="16:00">16:00</div>
-        <div class="time-item" data-t="17:00">17:00</div>
-        <div class="time-item" data-t="18:00">18:00</div>
-        <div class="time-item" data-t="19:00">19:00</div>
-        <div class="time-item" data-t="20:00">20:00</div>
+
+    <!-- =====================
+         PAGE 2 鲜花时间
+    ====================== -->
+    <div class="page" id="page2">
+
+        <h1>
+            🌸 挑选鲜花送达时间
+        </h1>
+
+        <p>
+            请选择9月18日下午鲜花送达的整点时间
+        </p>
+
+        <div class="time-list">
+
+            <div class="time-item" data-t="13:00">13:00</div>
+            <div class="time-item" data-t="14:00">14:00</div>
+            <div class="time-item" data-t="15:00">15:00</div>
+            <div class="time-item" data-t="16:00">16:00</div>
+
+            <div class="time-item" data-t="17:00">17:00</div>
+            <div class="time-item" data-t="18:00">18:00</div>
+            <div class="time-item" data-t="19:00">19:00</div>
+            <div class="time-item" data-t="20:00">20:00</div>
+
+        </div>
+
     </div>
-</div>
 
-<!-- 选饮品页面 -->
-<div class="page" id="page3">
-    <h1>想喝什么奶茶呢？</h1>
-    <p>选一款，和鲜花一起安排上</p>
-    <div class="drink-list">
-        <div class="drink-item" data-d="喜茶">喜茶</div>
-        <div class="drink-item" data-d="奈雪">奈雪</div>
-        <div class="drink-item" data-d="茉莉奶白">茉莉奶白</div>
-        <div class="drink-item" data-d="茶百道">茶百道</div>
+
+    <!-- =====================
+         PAGE 3 鲜花地点
+    ====================== -->
+    <div class="page" id="page3">
+
+        <h1>
+            🌷 鲜花想送到哪里呢？
+        </h1>
+
+        <p>
+            选一个你方便收到花的地方
+        </p>
+
+        <div class="location-list">
+
+            <div
+                class="location-item flower-location"
+                data-location="学校">
+                🏫 学校
+            </div>
+
+            <div
+                class="location-item flower-location"
+                data-location="家里">
+                🏠 家里
+            </div>
+
+        </div>
+
     </div>
-</div>
 
-<!-- 结果卡片（已按截图修改文字） -->
-<div class="page" id="page4">
-    <div class="result-card">
-        <h1>💌 鲜花预订成功</h1>
-        <p>📅 日期：9月18日<br>⏰ 送达时间：<span id="selTime"></span><br>🥤 饮品：<span id="selDrink"></span><br>🌸 纪念我们相识的100天</p>
-        <p class="tip-text">鲜花预订成功！</p>
+
+    <!-- =====================
+         PAGE 4 奶茶选择
+    ====================== -->
+    <div class="page" id="page4">
+
+        <h1>
+            🥤 想喝什么奶茶呢？
+        </h1>
+
+        <p>
+            选一款，和鲜花一起安排上
+        </p>
+
+        <div class="drink-list">
+
+            <div class="drink-item" data-d="喜茶">
+                喜茶
+            </div>
+
+            <div class="drink-item" data-d="奈雪">
+                奈雪
+            </div>
+
+            <div class="drink-item" data-d="茉莉奶白">
+                茉莉奶白
+            </div>
+
+            <div class="drink-item" data-d="茶百道">
+                茶百道
+            </div>
+
+        </div>
+
     </div>
-</div>
 
-<script>
-const page1=document.getElementById('page1'),page2=document.getElementById('page2'),page3=document.getElementById('page3'),page4=document.getElementById('page4');
-const yesBtn=document.getElementById('yesBtn'),noBtn=document.getElementById('noBtn');
-const selTime=document.getElementById('selTime');
-const selDrink=document.getElementById('selDrink');
-const timeItems=document.querySelectorAll('.time-item');
-const drinkItems=document.querySelectorAll('.drink-item');
-const bgMusic = document.getElementById('bgMusic');
-const musicBtn = document.getElementById('musicBtn');
 
-// 音乐切换播放暂停
-musicBtn.onclick = ()=>{
-    if(bgMusic.paused){
-        bgMusic.play();
-        musicBtn.innerText = "🔇 暂停音乐";
-    }else{
-        bgMusic.pause();
-        musicBtn.innerText = "🎵 播放音乐";
-    }
-}
+    <!-- =====================
+         PAGE 5 奶茶地点
+    ====================== -->
+    <div class="page" id="page5">
 
-let scaleYes=1,scaleNo=1;
-function shrink(){
-    scaleYes+=0.15;scaleNo-=0.15;
-    if(scaleNo<0.2)scaleNo=0.2;
-    yesBtn.style.transform=`scale(${scaleYes})`;
-    noBtn.style.transform=`scale(${scaleNo})`;
-}
-noBtn.addEventListener('mouseover',shrink);
-noBtn.addEventListener('click',(e)=>{e.preventDefault();shrink();});
+        <h1>
+            🧋 奶茶想送到哪里呢？
+        </h1>
 
-yesBtn.onclick=()=>{
-    page1.classList.remove('active');
-    page2.classList.add('active');
-    // 用户点击愿意，自动播放背景音乐（浏览器允许）
-    bgMusic.play().then(()=>{musicBtn.innerText = "🔇 暂停音乐";}).catch(err=>{});
-};
+        <p>
+            鲜花和奶茶也可以送到不同的地方哦
+        </p>
 
-// 选择时间，跳转到选奶茶
-timeItems.forEach(item=>{
-    item.onclick=()=>{
-        const time=item.dataset.t;
-        selTime.innerText=time;
-        page2.classList.remove('active');
-        page3.classList.add('active');
-    };
-});
+        <div class="location-list">
 
-// 选择奶茶，跳转到成功页
-drinkItems.forEach(item=>{
-    item.onclick=()=>{
-        const drink=item.dataset.d;
-        selDrink.innerText=drink;
-        page3.classList.remove('active');
-        page4.classList.add('active');
-    };
-});
-</script>
+            <div
+                class="location-item drink-location"
+                data-location="学校">
+                🏫 学校
+            </div>
+
+            <div
+                class="location-item drink-location"
+                data-location="家里">
+                🏠 家里
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <!-- =====================
+         PAGE 6 最终纪念卡片
+    ====================== -->
+    <div class="page" id="page6">
+
+        <div class="result-card">
+
+            <div class="days-number">
+                100
+            </div>
+
+            <div class="days-text">
+                DAYS
+            </div>
+
+            <h1>
+                💌 鲜花预订成功
+            </h1>
+
+
+            <div class="result-info">
+
+                <p>
+
+                    📅 日期：9月18日
+
+                    <br>
+
+                    ⏰ 鲜花送达时间：
+                    <span id="selTime"></span>
+
+                    <br>
+
+                    🌸 鲜花送达地点：
+                    <span id="selFlowerLocation"></span>
+
+                    <br>
+
+                    🥤 饮品：
+                    <span id="selDrink"></span>
+
+                    <br>
+
+                    📍 奶茶送达地点：
+                    <span id="selDrinkLocation"></span>
+
+                </p>
+
+            </div>
+
+
+            <p class="anniversary-text">
+
+                🌸 纪念我们相识的第100天
+
+                <br>
+
+                很开心认识你，也很期待之后的每一天。
+
+            </p>
+
+
+            <p class="tip-text">
+                请截图分享给你认为重要的人
+            </p>
+
+        </div>
+
+    </div>
+
+
+    <script>
+
+        /* 获取页面 */
+        const page1 = document.getElementById("page1");
+        const page2 = document.getElementById("page2");
+        const page3 = document.getElementById("page3");
+        const page4 = document.getElementById("page4");
+        const page5 = document.getElementById("page5");
+        const page6 = document.getElementById("page6");
+
+
+        /* 首页按钮 */
+        const yesBtn = document.getElementById("yesBtn");
+        const noBtn = document.getElementById("noBtn");
+
+
+        /* 最终显示数据 */
+        const selTime =
+            document.getElementById("selTime");
+
+        const selFlowerLocation =
+            document.getElementById("selFlowerLocation");
+
+        const selDrink =
+            document.getElementById("selDrink");
+
+        const selDrinkLocation =
+            document.getElementById("selDrinkLocation");
+
+
+        /* 获取所有选项 */
+        const timeItems =
+            document.querySelectorAll(".time-item");
+
+        const flowerLocations =
+            document.querySelectorAll(".flower-location");
+
+        const drinkItems =
+            document.querySelectorAll(".drink-item");
+
+        const drinkLocations =
+            document.querySelectorAll(".drink-location");
+
+
+        /* 音乐 */
+        const bgMusic =
+            document.getElementById("bgMusic");
+
+        const musicBtn =
+            document.getElementById("musicBtn");
+
+
+        /* =====================
+           音乐播放 / 暂停
+        ====================== */
+        musicBtn.onclick = () => {
+
+            if (bgMusic.paused) {
+
+                bgMusic.play()
+                    .then(() => {
+
+                        musicBtn.innerText =
+                            "🔇 暂停音乐";
+
+                    })
+                    .catch(() => {});
+
+            } else {
+
+                bgMusic.pause();
+
+                musicBtn.innerText =
+                    "🎵 播放音乐";
+
+            }
+
+        };
+
+
+        /* =====================
+           “不要”按钮效果
+        ====================== */
+
+        let scaleYes = 1;
+        let scaleNo = 1;
+
+
+        function shrink() {
+
+            scaleYes += 0.15;
+
+            scaleNo -= 0.15;
+
+
+            if (scaleNo < 0.2) {
+
+                scaleNo = 0.2;
+
+            }
+
+
+            yesBtn.style.transform =
+                `scale(${scaleYes})`;
+
+            noBtn.style.transform =
+                `scale(${scaleNo})`;
+
+        }
+
+
+        noBtn.addEventListener(
+            "mouseover",
+            shrink
+        );
+
+
+        noBtn.addEventListener(
+            "click",
+            (e) => {
+
+                e.preventDefault();
+
+                shrink();
+
+            }
+        );
+
+
+        /* =====================
+           点击愿意
+        ====================== */
+
+        yesBtn.onclick = () => {
+
+            page1.classList.remove("active");
+
+            page2.classList.add("active");
+
+
+            bgMusic.play()
+                .then(() => {
+
+                    musicBtn.innerText =
+                        "🔇 暂停音乐";
+
+                })
+                .catch(() => {});
+
+        };
+
+
+        /* =====================
+           选择鲜花送达时间
+        ====================== */
+
+        timeItems.forEach(item => {
+
+            item.onclick = () => {
+
+                const time =
+                    item.dataset.t;
+
+
+                selTime.innerText =
+                    time;
+
+
+                timeItems.forEach(i => {
+
+                    i.classList.remove("selected");
+
+                });
+
+
+                item.classList.add("selected");
+
+
+                setTimeout(() => {
+
+                    page2.classList.remove("active");
+
+                    page3.classList.add("active");
+
+                }, 300);
+
+            };
+
+        });
+
+
+        /* =====================
+           选择鲜花地点
+        ====================== */
+
+        flowerLocations.forEach(item => {
+
+            item.onclick = () => {
+
+                const location =
+                    item.dataset.location;
+
+
+                selFlowerLocation.innerText =
+                    location;
+
+
+                flowerLocations.forEach(i => {
+
+                    i.classList.remove("selected");
+
+                });
+
+
+                item.classList.add("selected");
+
+
+                setTimeout(() => {
+
+                    page3.classList.remove("active");
+
+                    page4.classList.add("active");
+
+                }, 300);
+
+            };
+
+        });
+
+
+        /* =====================
+           选择奶茶
+        ====================== */
+
+        drinkItems.forEach(item => {
+
+            item.onclick = () => {
+
+                const drink =
+                    item.dataset.d;
+
+
+                selDrink.innerText =
+                    drink;
+
+
+                drinkItems.forEach(i => {
+
+                    i.classList.remove("selected");
+
+                });
+
+
+                item.classList.add("selected");
+
+
+                setTimeout(() => {
+
+                    page4.classList.remove("active");
+
+                    page5.classList.add("active");
+
+                }, 300);
+
+            };
+
+        });
+
+
+        /* =====================
+           选择奶茶地点
+        ====================== */
+
+        drinkLocations.forEach(item => {
+
+            item.onclick = () => {
+
+                const location =
+                    item.dataset.location;
+
+
+                selDrinkLocation.innerText =
+                    location;
+
+
+                drinkLocations.forEach(i => {
+
+                    i.classList.remove("selected");
+
+                });
+
+
+                item.classList.add("selected");
+
+
+                setTimeout(() => {
+
+                    page5.classList.remove("active");
+
+                    page6.classList.add("active");
+
+                }, 300);
+
+            };
+
+        });
+
+    </script>
+
 </body>
 </html>
