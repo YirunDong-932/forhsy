@@ -19,15 +19,16 @@
         button{padding:14px 32px;font-size:18px;border:none;border-radius:99px;cursor:pointer;transition:0.3s ease all;}
         #yesBtn{background:#f284a1;color:white;transform:scale(1);}
         #noBtn{background:#ddd;color:#333;transform:scale(1);}
-        .time-list{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;max-width:500px;margin:20px auto;}
-        .time-item{padding:10px;background:#ffe6ec;border-radius:8px;cursor:pointer;}
-        .time-item:hover{background:#f8b8c8;color:white;}
+        .time-list,.drink-list{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;max-width:500px;margin:20px auto;}
+        .time-item,.drink-item{padding:10px;background:#ffe6ec;border-radius:8px;cursor:pointer;}
+        .time-item:hover,.drink-item:hover{background:#f8b8c8;color:white;}
         .result-card{background:white;padding:30px;border-radius:20px;box-shadow:0 4px 15px #00000010;}
         .tip-text{margin-top:20px;font-size:15px;color:#b87088;}
     </style>
 </head>
 <body>
 
+<!-- 首页 -->
 <div class="page active" id="page1">
     <h1>✨ 9.18 我们相识100天✨<br>想送你一束花，可以吗？</h1>
     <div class="btn-box">
@@ -36,14 +37,11 @@
     </div>
 </div>
 
+<!-- 选时间页面（只保留下午时段） -->
 <div class="page" id="page2">
     <h1>挑选鲜花送达时间</h1>
-    <p>请选择9月18日鲜花送达的整点时间</p>
+    <p>请选择9月18日下午鲜花送达的整点时间</p>
     <div class="time-list">
-        <div class="time-item" data-t="9:00">9:00</div>
-        <div class="time-item" data-t="10:00">10:00</div>
-        <div class="time-item" data-t="11:00">11:00</div>
-        <div class="time-item" data-t="12:00">12:00</div>
         <div class="time-item" data-t="13:00">13:00</div>
         <div class="time-item" data-t="14:00">14:00</div>
         <div class="time-item" data-t="15:00">15:00</div>
@@ -55,19 +53,34 @@
     </div>
 </div>
 
+<!-- 选饮品页面 -->
 <div class="page" id="page3">
+    <h1>想喝什么奶茶呢？</h1>
+    <p>选一款，和鲜花一起安排上</p>
+    <div class="drink-list">
+        <div class="drink-item" data-d="喜茶">喜茶</div>
+        <div class="drink-item" data-d="奈雪">奈雪</div>
+        <div class="drink-item" data-d="茉莉奶白">茉莉奶白</div>
+        <div class="drink-item" data-d="茶百道">茶百道</div>
+    </div>
+</div>
+
+<!-- 结果卡片 -->
+<div class="page" id="page4">
     <div class="result-card">
         <h1>💌 预约成功！</h1>
-        <p>📅 日期：9月18日<br>⏰ 送达时间：<span id="selTime"></span><br>🌸 纪念：我们相识100天的鲜花</p>
+        <p>📅 日期：9月18日<br>⏰ 送达时间：<span id="selTime"></span><br>🥤 饮品：<span id="selDrink"></span><br>🌸 纪念：我们相识100天的鲜花</p>
         <p class="tip-text">很高兴和你走过这100天，期待往后更多日子✨</p>
     </div>
 </div>
 
 <script>
-const page1=document.getElementById('page1'),page2=document.getElementById('page2'),page3=document.getElementById('page3');
+const page1=document.getElementById('page1'),page2=document.getElementById('page2'),page3=document.getElementById('page3'),page4=document.getElementById('page4');
 const yesBtn=document.getElementById('yesBtn'),noBtn=document.getElementById('noBtn');
 const selTime=document.getElementById('selTime');
+const selDrink=document.getElementById('selDrink');
 const timeItems=document.querySelectorAll('.time-item');
+const drinkItems=document.querySelectorAll('.drink-item');
 
 let scaleYes=1,scaleNo=1;
 function shrink(){
@@ -81,12 +94,23 @@ noBtn.addEventListener('click',(e)=>{e.preventDefault();shrink();});
 
 yesBtn.onclick=()=>{page1.classList.remove('active');page2.classList.add('active');};
 
+// 选择时间，跳转到选奶茶
 timeItems.forEach(item=>{
     item.onclick=()=>{
         const time=item.dataset.t;
         selTime.innerText=time;
         page2.classList.remove('active');
         page3.classList.add('active');
+    };
+});
+
+// 选择奶茶，跳转到成功页
+drinkItems.forEach(item=>{
+    item.onclick=()=>{
+        const drink=item.dataset.d;
+        selDrink.innerText=drink;
+        page3.classList.remove('active');
+        page4.classList.add('active');
     };
 });
 </script>
