@@ -634,7 +634,7 @@
 
 
         /* ==================================================
-           音乐按钮 - 桌面端
+           音乐按钮
         ================================================== */
 
         #musicBtn {
@@ -712,7 +712,7 @@
 
         /* ==================================================
            隐藏入口
-           左下角 22 × 22
+           左下角最边缘 22×22px
         ================================================== */
 
         #secretTrigger {
@@ -743,35 +743,103 @@
 
 
         /* ==================================================
-           隐藏页面
+           隐藏正式表白页
         ================================================== */
 
         #secretPage {
-            max-width: 700px;
+            max-width: 680px;
 
             margin: auto;
+
+            padding: 20px;
         }
 
 
-        .secret-message {
+        .secret-card {
+            width: min(90vw, 560px);
+
+            margin: auto;
+
+            background: rgba(255, 255, 255, 0.78);
+
+            padding:
+                42px
+                34px
+                34px;
+
+            border-radius: 24px;
+
+            box-shadow:
+                0 12px 38px
+                rgba(216, 107, 138, 0.12);
+
+            text-align: center;
+        }
+
+
+        #secretPage.active .secret-card {
+            animation:
+                secretFade
+                1.2s
+                ease
+                both;
+        }
+
+
+        .secret-title {
             color: #d86b8a;
 
             font-size: 30px;
 
             font-weight: 500;
 
-            line-height: 2;
+            line-height: 1.6;
 
-            letter-spacing: 1px;
+            margin-bottom: 30px;
         }
 
 
-        #secretPage.active .secret-message {
-            animation:
-                secretFade
-                1.2s
-                ease
-                both;
+        .secret-content {
+            color: #8a6872;
+
+            font-size: 17px;
+
+            line-height: 2;
+
+            text-align: center;
+        }
+
+
+        .secret-content p {
+            color: #8a6872;
+
+            font-size: 17px;
+
+            line-height: 2;
+
+            margin-bottom: 22px;
+        }
+
+
+        .secret-signature {
+            margin-top: 32px;
+
+            color: #c2768d;
+
+            font-size: 16px;
+
+            line-height: 1.9;
+        }
+
+
+        .secret-date {
+            margin-top: 8px;
+
+            color: #b9a0a7;
+
+            font-size: 12px;
+
+            letter-spacing: 1px;
         }
 
 
@@ -781,20 +849,22 @@
                 opacity: 0;
 
                 transform:
-                    translateY(16px);
+                    translateY(18px)
+                    scale(0.985);
             }
 
             to {
                 opacity: 1;
 
                 transform:
-                    translateY(0);
+                    translateY(0)
+                    scale(1);
             }
         }
 
 
         #secretBack {
-            margin-top: 40px;
+            margin-top: 32px;
 
             background: transparent;
 
@@ -802,7 +872,7 @@
 
             font-size: 13px;
 
-            padding: 8px 16px;
+            padding: 8px 18px;
 
             border:
                 1px solid #ead5db;
@@ -950,19 +1020,7 @@
             }
 
 
-            .secret-message {
-                font-size: 24px;
-
-                line-height: 1.9;
-            }
-
-
-            /*
-             * 手机音乐按钮
-             *
-             * 自动变成圆形，
-             * 只显示图标
-             */
+            /* 手机音乐按钮 */
 
             #musicBtn {
                 top:
@@ -995,13 +1053,59 @@
             }
 
 
-            /*
-             * 手机隐藏：
-             * “暂停音乐 / 播放音乐”
-             */
-
             #musicText {
                 display: none;
+            }
+
+
+            /* 隐藏表白页手机适配 */
+
+            #secretPage {
+                padding: 5px;
+            }
+
+
+            .secret-card {
+                width: 94vw;
+
+                padding:
+                    34px
+                    22px
+                    28px;
+
+                border-radius: 22px;
+            }
+
+
+            .secret-title {
+                font-size: 24px;
+
+                margin-bottom: 25px;
+            }
+
+
+            .secret-content,
+            .secret-content p {
+                font-size: 15px;
+
+                line-height: 1.95;
+            }
+
+
+            .secret-content p {
+                margin-bottom: 20px;
+            }
+
+
+            .secret-signature {
+                font-size: 15px;
+
+                margin-top: 26px;
+            }
+
+
+            .secret-date {
+                font-size: 11px;
             }
 
         }
@@ -1048,6 +1152,17 @@
                 font-size: 16px;
             }
 
+
+            .secret-title {
+                font-size: 22px;
+            }
+
+
+            .secret-content,
+            .secret-content p {
+                font-size: 14px;
+            }
+
         }
 
     </style>
@@ -1059,7 +1174,7 @@
 
 
     <!-- ==================================================
-         背景音乐
+         BGM
     ================================================== -->
 
     <audio
@@ -1101,8 +1216,7 @@
 
     <!-- ==================================================
          隐藏入口
-         
-         左下角最边缘
+         网页左下角最边缘
     ================================================== -->
 
     <button
@@ -1140,8 +1254,6 @@
 
 
 
-        <!-- 第一段 -->
-
         <div
             class="intro-line important"
             id="introLine1"
@@ -1152,8 +1264,6 @@
         </div>
 
 
-
-        <!-- 第二段 -->
 
         <div
             class="intro-line"
@@ -1170,8 +1280,6 @@
 
 
 
-        <!-- 第三段 -->
-
         <div
             class="intro-line"
             id="introLine3"
@@ -1186,8 +1294,6 @@
         </div>
 
 
-
-        <!-- 第四段 -->
 
         <div
             class="intro-line"
@@ -1204,8 +1310,6 @@
 
 
 
-        <!-- 最后出现 -->
-
         <button id="soBtn">
 
             所以……
@@ -1219,7 +1323,6 @@
 
     <!-- ==================================================
          PAGE 1
-         送花邀请
     ================================================== -->
 
     <div
@@ -1265,7 +1368,6 @@
 
     <!-- ==================================================
          PAGE 2
-         鲜花时间
     ================================================== -->
 
     <div
@@ -1291,50 +1393,32 @@
         <div class="time-list">
 
 
-            <div
-                class="time-item"
-                data-t="15:00"
-            >
+            <div class="time-item" data-t="15:00">
                 15:00
             </div>
 
 
-            <div
-                class="time-item"
-                data-t="16:00"
-            >
+            <div class="time-item" data-t="16:00">
                 16:00
             </div>
 
 
-            <div
-                class="time-item"
-                data-t="17:00"
-            >
+            <div class="time-item" data-t="17:00">
                 17:00
             </div>
 
 
-            <div
-                class="time-item"
-                data-t="18:00"
-            >
+            <div class="time-item" data-t="18:00">
                 18:00
             </div>
 
 
-            <div
-                class="time-item"
-                data-t="19:00"
-            >
+            <div class="time-item" data-t="19:00">
                 19:00
             </div>
 
 
-            <div
-                class="time-item"
-                data-t="20:00"
-            >
+            <div class="time-item" data-t="20:00">
                 20:00
             </div>
 
@@ -1348,7 +1432,6 @@
 
     <!-- ==================================================
          PAGE 3
-         鲜花地点
     ================================================== -->
 
     <div
@@ -1407,7 +1490,6 @@
 
     <!-- ==================================================
          PAGE 4
-         奶茶
     ================================================== -->
 
     <div
@@ -1482,7 +1564,6 @@
 
     <!-- ==================================================
          PAGE 5
-         奶茶地点
     ================================================== -->
 
     <div
@@ -1541,7 +1622,6 @@
 
     <!-- ==================================================
          PAGE 6
-         最终卡片
     ================================================== -->
 
     <div
@@ -1656,7 +1736,7 @@
 
 
     <!-- ==================================================
-         隐藏页面
+         隐藏正式表白页面
     ================================================== -->
 
     <div
@@ -1665,22 +1745,95 @@
     >
 
 
-        <div class="secret-message">
+        <div class="secret-card">
 
-            郝爽言，我喜欢你。
 
-            <br>
+            <div class="secret-title">
 
-            -- 董亦润
+                郝爽言，我喜欢你。
+
+            </div>
+
+
+
+            <div class="secret-content">
+
+
+                <p>
+
+                    不是因为第100天，
+
+                    <br>
+
+                    才突然想说这句话。
+
+                </p>
+
+
+                <p>
+
+                    只是认识你的这段时间里，
+
+                    <br>
+
+                    我越来越确定，
+
+                    <br>
+
+                    我是真的很喜欢你。
+
+                </p>
+
+
+                <p>
+
+                    我很珍惜我们现在的相处，
+
+                    <br>
+
+                    也想继续慢慢了解你。
+
+                </p>
+
+
+                <p>
+
+                    如果你也愿意的话，
+
+                    <br>
+
+                    我希望我们可以认真地试着走近一点。
+
+                </p>
+
+
+            </div>
+
+
+
+            <div class="secret-signature">
+
+                —— 董亦润
+
+            </div>
+
+
+            <div class="secret-date">
+
+                写于 2026 年 9 月 14 日
+
+            </div>
+
+
+
+            <button id="secretBack">
+
+                返回
+
+            </button>
+
 
         </div>
-
-
-        <button id="secretBack">
-
-            返回
-
-        </button>
 
 
     </div>
@@ -1748,7 +1901,7 @@
 
 
         /* ==================================================
-           页面柔和切换
+           页面切换
         ================================================== */
 
         let isTransitioning = false;
@@ -1775,10 +1928,6 @@
             isTransitioning = true;
 
 
-            /*
-             * 旧页面淡出
-             */
-
             fromPage.classList.add(
                 "leaving"
             );
@@ -1792,10 +1941,6 @@
                     "leaving"
                 );
 
-
-                /*
-                 * 新页面淡入
-                 */
 
                 toPage.classList.add(
                     "active"
@@ -1892,10 +2037,6 @@
 
 
 
-        /*
-         * 统一控制音乐按钮显示状态
-         */
-
         function updateMusicButton(
             playing
         ) {
@@ -1962,8 +2103,7 @@
 
 
             /*
-             * 点击的一瞬间
-             * 开始播放 BGM
+             * 点击这一刻播放 BGM
              */
 
             bgMusic.play()
@@ -1983,11 +2123,6 @@
                 .catch(() => {
 
 
-                    /*
-                     * 如果浏览器阻止播放
-                     * 就显示手动播放按钮
-                     */
-
                     musicBtn.style.display =
                         "flex";
 
@@ -2002,8 +2137,7 @@
 
 
             /*
-             * 开场标题与按钮
-             * 先柔和淡出
+             * 开场标题和按钮柔和淡出
              */
 
             introTitle.style.transition =
@@ -2103,7 +2237,7 @@
 
 
             /*
-             * 最后出现“所以……”
+             * 所以……
              */
 
             setTimeout(() => {
@@ -2138,7 +2272,7 @@
 
 
         /* ==================================================
-           音乐按钮
+           音乐播放暂停
         ================================================== */
 
         musicBtn.onclick = () => {
@@ -2185,12 +2319,6 @@
         };
 
 
-
-        /*
-         * 如果音乐因为其他原因暂停，
-         * UI 也同步。
-         */
-
         bgMusic.addEventListener(
             "pause",
             () => {
@@ -2234,7 +2362,7 @@
 
 
         /* ==================================================
-           最终结果
+           结果
         ================================================== */
 
         const selTime =
@@ -2292,7 +2420,7 @@
 
 
         /* ==================================================
-           不要按钮动画
+           不要按钮
         ================================================== */
 
         let scaleYes = 1;
@@ -2327,21 +2455,11 @@
         }
 
 
-
-        /*
-         * 电脑端
-         */
-
         noBtn.addEventListener(
             "mouseover",
             shrink
         );
 
-
-
-        /*
-         * 手机 / 电脑点击
-         */
 
         noBtn.addEventListener(
             "click",
@@ -2360,7 +2478,7 @@
 
 
         /* ==================================================
-           点击好呀
+           好呀
         ================================================== */
 
         yesBtn.onclick = () => {
@@ -2394,7 +2512,6 @@
                     time;
 
 
-
                 timeItems.forEach(i => {
 
 
@@ -2406,11 +2523,9 @@
                 });
 
 
-
                 item.classList.add(
                     "selected"
                 );
-
 
 
                 setTimeout(() => {
@@ -2450,7 +2565,6 @@
                     location;
 
 
-
                 flowerLocations.forEach(i => {
 
 
@@ -2462,11 +2576,9 @@
                 });
 
 
-
                 item.classList.add(
                     "selected"
                 );
-
 
 
                 setTimeout(() => {
@@ -2506,7 +2618,6 @@
                     drink;
 
 
-
                 drinkItems.forEach(i => {
 
 
@@ -2518,11 +2629,9 @@
                 });
 
 
-
                 item.classList.add(
                     "selected"
                 );
-
 
 
                 setTimeout(() => {
@@ -2562,7 +2671,6 @@
                     location;
 
 
-
                 drinkLocations.forEach(i => {
 
 
@@ -2574,11 +2682,9 @@
                 });
 
 
-
                 item.classList.add(
                     "selected"
                 );
-
 
 
                 setTimeout(() => {
@@ -2645,7 +2751,6 @@
             }
 
 
-
             previousPage =
                 document.querySelector(
                     ".page.active"
@@ -2659,15 +2764,8 @@
             }
 
 
-
-            /*
-             * 进入隐藏页面期间
-             * 暂时关闭入口
-             */
-
             secretTrigger.style.pointerEvents =
                 "none";
-
 
 
             switchPage(
