@@ -743,7 +743,7 @@
 
 
         /* ==================================================
-           隐藏正式表白页
+           隐藏表白页
         ================================================== */
 
         #secretPage {
@@ -760,11 +760,12 @@
 
             margin: auto;
 
-            background: rgba(255, 255, 255, 0.78);
+            background:
+                rgba(255, 255, 255, 0.78);
 
             padding:
-                42px
-                34px
+                44px
+                36px
                 34px;
 
             border-radius: 24px;
@@ -795,7 +796,7 @@
 
             line-height: 1.6;
 
-            margin-bottom: 30px;
+            margin-bottom: 34px;
         }
 
 
@@ -817,29 +818,64 @@
 
             line-height: 2;
 
-            margin-bottom: 22px;
+            margin-bottom: 24px;
         }
 
 
+        .secret-content p:last-child {
+            margin-bottom: 0;
+        }
+
+
+        /*
+         * 署名：
+         * 比正文稍微明显一点
+         */
+
         .secret-signature {
-            margin-top: 32px;
+            margin-top: 36px;
 
             color: #c2768d;
 
             font-size: 16px;
 
-            line-height: 1.9;
+            line-height: 1.8;
         }
 
 
+        /*
+         * 日期：
+         * 最淡、最小
+         */
+
         .secret-date {
-            margin-top: 8px;
+            margin-top: 7px;
 
             color: #b9a0a7;
 
             font-size: 12px;
 
-            letter-spacing: 1px;
+            line-height: 1.6;
+
+            letter-spacing: 0.5px;
+        }
+
+
+        /*
+         * 截图彩蛋：
+         * 比日期稍微明显一点
+         */
+
+        .secret-surprise {
+            margin-top: 10px;
+
+            color: #cf8aa0;
+
+            font-size: 12px;
+
+            line-height: 1.6;
+
+            letter-spacing: 0.4px;
         }
 
 
@@ -864,7 +900,7 @@
 
 
         #secretBack {
-            margin-top: 32px;
+            margin-top: 34px;
 
             background: transparent;
 
@@ -1058,20 +1094,31 @@
             }
 
 
-            /* 隐藏表白页手机适配 */
+            /* ==================================================
+               隐藏表白页 - 手机
+            ================================================== */
 
             #secretPage {
                 padding: 5px;
             }
 
 
+            /*
+             * 这里从原来的 94vw
+             * 收窄为 90vw
+             *
+             * 两侧会留下更多粉色背景
+             */
+
             .secret-card {
-                width: 94vw;
+                width: 90vw;
+
+                max-width: 430px;
 
                 padding:
-                    34px
-                    22px
-                    28px;
+                    36px
+                    24px
+                    30px;
 
                 border-radius: 22px;
             }
@@ -1080,7 +1127,9 @@
             .secret-title {
                 font-size: 24px;
 
-                margin-bottom: 25px;
+                line-height: 1.6;
+
+                margin-bottom: 28px;
             }
 
 
@@ -1093,19 +1142,33 @@
 
 
             .secret-content p {
-                margin-bottom: 20px;
+                margin-bottom: 21px;
             }
 
 
             .secret-signature {
                 font-size: 15px;
 
-                margin-top: 26px;
+                margin-top: 30px;
             }
 
 
             .secret-date {
                 font-size: 11px;
+
+                margin-top: 6px;
+            }
+
+
+            .secret-surprise {
+                margin-top: 9px;
+
+                font-size: 11px;
+            }
+
+
+            #secretBack {
+                margin-top: 30px;
             }
 
         }
@@ -1153,6 +1216,16 @@
             }
 
 
+            .secret-card {
+                width: 91vw;
+
+                padding:
+                    32px
+                    20px
+                    27px;
+            }
+
+
             .secret-title {
                 font-size: 22px;
             }
@@ -1161,6 +1234,13 @@
             .secret-content,
             .secret-content p {
                 font-size: 14px;
+
+                line-height: 1.9;
+            }
+
+
+            .secret-content p {
+                margin-bottom: 18px;
             }
 
         }
@@ -1393,32 +1473,50 @@
         <div class="time-list">
 
 
-            <div class="time-item" data-t="15:00">
+            <div
+                class="time-item"
+                data-t="15:00"
+            >
                 15:00
             </div>
 
 
-            <div class="time-item" data-t="16:00">
+            <div
+                class="time-item"
+                data-t="16:00"
+            >
                 16:00
             </div>
 
 
-            <div class="time-item" data-t="17:00">
+            <div
+                class="time-item"
+                data-t="17:00"
+            >
                 17:00
             </div>
 
 
-            <div class="time-item" data-t="18:00">
+            <div
+                class="time-item"
+                data-t="18:00"
+            >
                 18:00
             </div>
 
 
-            <div class="time-item" data-t="19:00">
+            <div
+                class="time-item"
+                data-t="19:00"
+            >
                 19:00
             </div>
 
 
-            <div class="time-item" data-t="20:00">
+            <div
+                class="time-item"
+                data-t="20:00"
+            >
                 20:00
             </div>
 
@@ -1776,11 +1874,7 @@
 
                     <br>
 
-                    我越来越确定，
-
-                    <br>
-
-                    我是真的很喜欢你。
+                    我越来越确定，我是真的很喜欢你。
 
                 </p>
 
@@ -1818,9 +1912,18 @@
             </div>
 
 
+
             <div class="secret-date">
 
-                写于 2026 年 9 月 14 日
+                写于2026年9月11日晚
+
+            </div>
+
+
+
+            <div class="secret-surprise">
+
+                凭此截图给我还有惊喜哦！
 
             </div>
 
@@ -2103,7 +2206,7 @@
 
 
             /*
-             * 点击这一刻播放 BGM
+             * 点击的一瞬间播放音乐
              */
 
             bgMusic.play()
@@ -2137,7 +2240,7 @@
 
 
             /*
-             * 开场标题和按钮柔和淡出
+             * 标题与按钮淡出
              */
 
             introTitle.style.transition =
@@ -2272,7 +2375,7 @@
 
 
         /* ==================================================
-           音乐播放暂停
+           音乐播放 / 暂停
         ================================================== */
 
         musicBtn.onclick = () => {
@@ -2362,7 +2465,7 @@
 
 
         /* ==================================================
-           结果
+           最终结果
         ================================================== */
 
         const selTime =
@@ -2763,6 +2866,11 @@
 
             }
 
+
+            /*
+             * 隐藏页打开之后
+             * 临时关闭入口
+             */
 
             secretTrigger.style.pointerEvents =
                 "none";
